@@ -3,7 +3,7 @@
 
 ## Project Explanation
 
-![life expectancy]()
+![life expectancy](https://github.com/TejasPosupo/Machine_Learning_Projects/blob/ML/Life_Expectancy_Prediction/Screenshot%202023-05-09%20092014.jpg)
 
 Life expectancy prediction is a process of estimating the average lifespan of an individual based on various factors such as age, gender, lifestyle, and medical history. Machine learning algorithms can be used to build models that can predict life expectancy with high accuracy.
 
