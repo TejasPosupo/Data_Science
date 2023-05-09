@@ -3,7 +3,7 @@
 
 ## Project Explanation
 
-![Customers Churn]()
+![Customers Churn](https://github.com/TejasPosupo/Machine_Learning_Projects/blob/ML/Telecom_churn_Prediction/Customer_Churn_Prediction_Models_in_Machine_Learning.png)
 
 Telecom customer churn prediction is a task of predicting whether a customer is likely to switch to a competitor or terminate their subscription with a telecom provider. Churn prediction is a critical task for telecom providers, as customer retention is essential for business sustainability and growth. By predicting which customers are likely to churn, telecom providers can take proactive measures to retain them and improve customer loyalty.
 
