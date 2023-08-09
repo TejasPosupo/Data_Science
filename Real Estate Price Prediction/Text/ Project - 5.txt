@@ -1,0 +1,758 @@
+in last tutorial we cleaned up our data
+
+frame and made it ready for model
+
+building in this tutorial we are going
+
+to build a machine learning model and
+
+then use k-fold cross-validation and
+
+grid cv to come up with the best
+
+algorithm as well as the best parameters
+
+here in this data frame we have a
+
+location and as you all know that
+
+machine learning model cannot interpret
+
+tax data this one is a tax column so we
+
+have to convert this into a numeric
+
+column and one of the ways of converting
+
+text column which is a categorical
+
+information into numerical information
+
+is to use one hot encoding it is also
+
+called dummies so we are going to use
+
+pandas dummies method here and the way
+
+you do that is you take your data frame
+
+and the column that you want to hot
+
+encode and then call PD dot get dummy's
+
+function on it when you run it what it
+
+will do is for each of the locations it
+
+will create a new column so for example
+
+first few locations our first block
+
+Guyana ger for that create a new column
+
+and set the value to 1 and remaining all
+
+the values are 0 when you have a
+
+location as first face JP Nagar
+
+the value see here the value is 1 and
+
+remaining values are 0 so it is a pretty
+
+straightforward encoding method if you
+
+want to know more about this I have a
+
+separate video just to cover one hot
+
+encoding now let's say you have this
+
+dummy columns here and I'm going to
+
+store them into a separate data frame
+
+so it looks something like this and then
+
+I will append that into my main data
+
+frame so I will create a new data frame
+
+called D f11 and I will concatenate D F
+
+10 and these dummies okay
+
+so DF 10 so the way you do that is D F
+
+dot conk it okay I want to funk it to
+
+data frames the f1 and the f2 on columns
+
+all right now which are the two data
+
+frames that I want to Kinkaid one is DF
+
+10 the second one is dummies all right
+
+now we learned in our other one hot
+
+encoding tutorial that to avoid a dummy
+
+variable trap you should have one less
+
+dummy column let's say if we drop first
+
+block jogger column then to represent
+
+this column we can use zeros in all
+
+other columns and that will means its
+
+first block can occur so we can live
+
+with one less column and for that reason
+
+I'm going to drop the last column here
+
+and the last column is other so this is
+
+the column I am going to drop and now my
+
+data frame looks something like this so
+
+it has our necessary features such as
+
+total square foot bath price etcetera
+
+and then all the location columns are
+
+dummy encoded okay so they are
+
+represented as the numbers so of course
+
+now I can drop this location column
+
+because I have already covered that
+
+column in to those dummies columns so
+
+here I will just drop that column and
+
+create a new data frame call it D f12
+
+Wow we are already at number 12 so this
+
+shows how how long our data processing
+
+pipeline has become this is like a
+
+pipeline you know DF one is one stage D
+
+F 2 is thoughts to the second stage and
+
+DF 2 L is probably the 12th stage we are
+
+now all set to start building our model
+
+first let me examine the shape of the
+
+data frame so we still have seven
+
+thousand rows 245 columns I will create
+
+an X variable because X variable should
+
+contain only independent variables okay
+
+my dependent variable is priced so I
+
+need to have price dropped from my data
+
+frame so I will say drop the price on
+
+axis is equal to columns which means
+
+drop the price column and that will give
+
+me my X which I need for my model
+
+training
+
+okay so X is all independent variables
+
+total square foot bath BHK and remaining
+
+all the columns are representing the
+
+location and Y is the f12 dot price okay
+
+and when you do y dot head all right so
+
+my x and y are ready now you all know
+
+from my other train to split tutorial
+
+that we always divide our data set into
+
+training and test data set then we use
+
+training data set for the model training
+
+and to evaluate the model performance we
+
+use the test data set okay so we are
+
+going to import train test split method
+
+from Escalon model selection and my
+
+taste size is 0.2 which means I want 20%
+
+of my samples to be tests and force and
+
+remaining 80% I am going to use for
+
+model training now here what I have done
+
+is I've created a linear regression
+
+model I have a separate tutorial on
+
+linear regression so if you want to look
+
+into the math behind it you can follow
+
+that tutorial for this tutorial we're
+
+just going to call fit method on X
+
+trained in Y train and once the model is
+
+trained which is in this tab the next
+
+step is to evaluate the score of our
+
+model
+
+we'll tell you how good our model is
+
+when you execute this it will it will do
+
+the training on extra in white rain and
+
+then it is giving me the score so the
+
+score is 84% which is pretty decent
+
+typically a data scientist would try
+
+couple of models with couple of
+
+different parameters to come up with the
+
+best optimal model okay
+
+so that's what we are going to do we are
+
+going to first use a k-fold
+
+cross-validation again for k-fold
+
+cross-validation i have a separate
+
+tutorial so if you have any curiosity in
+
+knowing the details you can go and watch
+
+that tutorial okay so here I have
+
+imported some imports and then I'm
+
+creating a shuffle split for my
+
+cross-validation shuffle split will
+
+randomize my samples so that each of the
+
+fold have equal distribution of my you
+
+know data samples so it's not just
+
+targeted into one area okay and when I
+
+use cross-validation I'm getting these
+
+scores so you can see I am kind of
+
+getting more than 80% score all the time
+
+I mean here I got 77% but majority of
+
+the time I am getting more than 80
+
+person okay I don't want to go into
+
+detail of how Croswell score works
+
+because that's a big topic and if you
+
+don't know about that I recommend that
+
+you watch my k-fold cross-validation
+
+tutorials now next step is we figured
+
+that for linear regression even if you
+
+run five full cross-validation we are
+
+getting score more than 80% but how
+
+about trying few other regression
+
+techniques okay there are like lasso
+
+regression there is decision tree
+
+regression there are various regression
+
+algorithms available so as a data
+
+scientist I want to try those different
+
+algorithms and figure out which one
+
+gives me the best score for that we use
+
+a method called grid search CV
+
+for grits SCV also I have a separate
+
+tutorial and I'm going to link that
+
+tutorial in this video at top right
+
+corner as well as in video description
+
+that's a very good API that Escalon
+
+provides which can run your model on
+
+different regressors and different
+
+parameters and it can tell you the base
+
+code let's import grid search cv other
+
+than linear regression of course I want
+
+to try less so and decision tree
+
+regression for grid sir CV I am going to
+
+write a function so this is how function
+
+is going to look like so I also can find
+
+my best model using grid search CV I
+
+will supply x and y as an input and this
+
+should tell me which algorithm is the
+
+best okay
+
+now in this configuration I have
+
+specified the algorithm as well as the
+
+parameters so greaser CV will not only
+
+do the best algorithm selection for that
+
+particular algorithm it will also tell
+
+you the best parameter this is called
+
+hyper parameter tuning to save some time
+
+of course I am just copying and pasting
+
+the code so scores I'm going to store in
+
+this course list I have this
+
+cross-validation suffer split which will
+
+just randomly shuffle my sample so that
+
+I can get more better result and then
+
+what I am doing is I am going through
+
+this Python dictionary this is just a
+
+dictionary I am just going through that
+
+and initializing grid search see view
+
+object with this model as well as these
+
+parameters okay this is the parameter
+
+grid that it will use for cost
+
+validation of course I'm using this CV
+
+object with five fold cross validation
+
+and then I will call a fit method once
+
+this method is called
+
+I will append the scores into this
+
+course list okay and this GS dot based
+
+code and based parameters will tell me
+
+the
+
+best parameters and base core for that
+
+particular run okay and then I will
+
+return the resultant scores into our
+
+data frame
+
+all right so once I have this method
+
+defined I can call the method on my X&Y
+
+I pause my video cause the training
+
+might take some time depending upon your
+
+computer but after running the training
+
+for some time it came up with the best
+
+score so here you can see that the
+
+winner is linear regression it has the
+
+maximum score
+
+you see laso has 68 person decision tree
+
+72% and for linear regression these are
+
+the best parameters which is normalized
+
+false so I can conclude that my linear
+
+regression model is the best one so
+
+whatever allows CLF classifier I have
+
+created here I will just use that and it
+
+is already trained with 84 percent score
+
+so I'm just going to use that to make
+
+property price prediction for couple of
+
+sample just to kind of test it out and
+
+for that I will write a predict price
+
+function okay so let me write that
+
+function so the price price function
+
+takes location square foot bath and BH
+
+case and input and it will return you
+
+the price estimated price now in your X
+
+array the zeros call the first column is
+
+square foot the second one is bath third
+
+one is BHK and for location you know we
+
+have some 240 location columns so for
+
+location
+
+I'm locating the appropriate column so
+
+let me just show you for example if you
+
+do X dot columns you find all of these
+
+columns okay if I want to know the
+
+location of the second phase judicial
+
+layout then I can simply do this here
+
+I can say my location is second please
+
+judicial layout and when you run it it
+
+gives you the column index as Phi you
+
+can see that this is 0 1 2 3 4 5 ok so
+
+that's how this method works in Donnelly
+
+and once you have location index you can
+
+set that particular index value to be
+
+one here and that's exactly what I'm
+
+doing and by doing this this will give
+
+you the predicted price so let's execute
+
+this and now let's make price prediction
+
+for first phase JP Nagar where the
+
+property square foot area is thousand
+
+square foot is two-bedroom and
+
+two-bathroom apartment so you get 83
+
+lakh rupees as an estimated price and if
+
+the same thing is let's say 3-bedroom
+
+3-bath then you get 86 lakh which kind
+
+of makes sense you know let's look at
+
+some other location some high price
+
+location we know in run a girl in
+
+Bangalore is little costly so when you
+
+run this you get so in phosphate JP
+
+Nagar the price would be 83 lakh versus
+
+indra Nagar is one core or 81 lakh
+
+rupees and the same home for 3-bedroom
+
+3-bath is 184 lakh now one observation
+
+you will make here is so second column
+
+third column is bath the fourth one is
+
+BHK so let's say for the same but and if
+
+I have more be HK and if I run this I'm
+
+getting little less price you see 83
+
+versus 81 you would think that the price
+
+should be higher if my BH kit goes
+
+higher okay but that's not what our data
+
+is telling us
+
+if you look at our data we have many
+
+samples where for a given location three
+
+bedroom apartments for same like
+
+square foot area they cost less compared
+
+to two-bedroom apartment now there could
+
+be different reasons like sometimes if
+
+your thousand square foot home and
+
+two-bedroom apartment then the too bad
+
+each the size of each bedroom will be
+
+big enough what's this if your
+
+three-bedroom you get you're getting
+
+three bedrooms but each of the bedrooms
+
+are very small and compact so someone
+
+might not like that that's one reason
+
+other reason is because of our data is
+
+distributed sometimes we don't have
+
+enough information on why three bedroom
+
+apartments would cost less compared to
+
+two for example check this here in
+
+radhaji Nagar I had two bedroom and
+
+three bedroom apartment and the square
+
+foot is little higher but look at the
+
+price price of two bedroom apartment is
+
+42 lakh more than this one and if you
+
+observed it up properly you find many
+
+such example and that's the reason why
+
+the model is giving this behavior all
+
+right now it is the time to export the
+
+model to a pickle file at the start of
+
+this tutorial series we said that we
+
+will export this model to a pickle file
+
+and then it will be used by our Python
+
+flash server so now that our model
+
+building procedure is done we are
+
+exporting all the artifacts which are
+
+needed needed by our Python flash server
+
+two different files okay so as a data
+
+scientist you walked with your business
+
+manager you went through various
+
+iterations you tried different models
+
+grid search cvk full cross validation
+
+you clean your data you remove outliers
+
+and you came up with this awesome model
+
+which is ready to be used in production
+
+in real life people also use a be
+
+testing just to test previous model
+
+versus this new model but we are not
+
+going to cover a be testing etc we will
+
+just look into how to export this model
+
+and then use it on our website for
+
+exporting the model also I have a
+
+separate tutorial but it is very simple
+
+code actually what you do is you import
+
+a pickup file
+
+then you just say pickle dot dump on and
+
+then you you pass your model your
+
+classifier as an argument and when you
+
+execute this it will export this file
+
+when I open my directory I see that I
+
+have this file you see this is the model
+
+that it got exported the size is 5 KB
+
+you would think like why the size is so
+
+small because this linear regression
+
+model is just storing the coefficients
+
+and intercept and all those parameters
+
+it doesn't have your actual data okay
+
+that's why the file size is very small
+
+other than the model we also need the
+
+columns information for example here in
+
+my predict price function I have this X
+
+dot columns these columns the way their
+
+structure and their index into the list
+
+is important for making a product per
+
+action so I will export that information
+
+into a JSON file and I have imported
+
+JSON and then all those columns I'm
+
+converted converting into lowercase
+
+because you know like there are like
+
+upper and lowercase combination so it's
+
+better if everything is in the lowercase
+
+and then I'm dumping all of them into a
+
+JSON file here is my JSON file if I add
+
+it with notepad it looks something like
+
+this so it has all the columns okay so
+
+this JSON file and this pickle model are
+
+going to be used in my Python flash
+
+server so this is all I have for this
+
+tutorial in the next tutorial we are
+
+going to build Python server which will
+
+use these two artifacts thank you for
+
+watching
+
+I will see you next tutorial
+

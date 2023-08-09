@@ -1,0 +1,730 @@
+now that our model is built and the
+
+artifacts are exported the next step
+
+would be to write a Python flash server
+
+which can sell HTTP requests made from
+
+the UI and it can predict the home
+
+prices for you so in this video we are
+
+going to write that Python flask server
+
+which will be used as a back end for our
+
+UI application here I am going to click
+
+on pie chart on PyCharm Community
+
+Edition is free to download from jet
+
+friend JetBrains website so you can
+
+download it it's a Python editor
+
+basically Here I am going to click on
+
+open to open a project so you go to C
+
+code directory and in here I have
+
+created a folder called PHP which is
+
+Bangalore home prices if you look at
+
+this folder the folder has three
+
+subfolders client so I have created all
+
+these folders okay and these are empty
+
+right now
+
+so client is empty this is where our UI
+
+application will live another folder is
+
+server this will contain the Python
+
+flash server that we are going to write
+
+in this video and the model has the
+
+notebook that we covered in all our
+
+previous tutorial so this is that
+
+notebook and these two are the artifacts
+
+so this one is the saved model and this
+
+one is columns dot JSON which we
+
+exported here in our not Boopsie these
+
+are the two files that we exported so
+
+let's open that folder here when you
+
+click on OK Python will open that folder
+
+and this is how it looks we are going to
+
+do work in this server folder in this
+
+video right click here and create a file
+
+called server dot pi
+
+in which you should import flask module
+
+flask is a model that allows you to
+
+write a Python service which can saw
+
+HTTP requests here I need to configure
+
+the interpreter so file settings
+
+interpreter and I'm going to use
+
+anaconda as my interpreter because
+
+anaconda comes with flask if you're not
+
+using anaconda then you have to do pip
+
+install flask yourself okay
+
+server dot pi is my main server file
+
+where I imported flask module and
+
+created an app using this line and in my
+
+main function I can just run app dot run
+
+and it will run the application on a
+
+specific port I'm going to write a
+
+simple hello routine okay so we can say
+
+hello which just returns hi and the way
+
+you expose HTTP endpoint is by writing
+
+app dot R out here you can say this is
+
+hello with just with which just returns
+
+hi okay and I can now run this server by
+
+simply saying bite on space server dot
+
+PI by doing this it's gonna run the
+
+servers on this particular URL which I
+
+can copy in my browser and I can call
+
+this hello routine and when I run this
+
+you can see that I got hi back so this
+
+is a very simple basic Python flash
+
+server which we have up and running okay
+
+now I'm going to close this server and
+
+write my actual routine so we need two
+
+routines so first routine would be to
+
+return the locations in Bangalore City
+
+now if you remember
+
+we have our locations in this column
+
+store JSON file okay so I'm going to
+
+create a subdirectory within server
+
+directory call it artifacts artifacts
+
+and copy those exported artifacts which
+
+is my model and column dot JSON so
+
+ctrl-c ctrl-v
+
+so now I have those artifacts here you
+
+can see that my artifacts have columns
+
+dot JSON and the actual model and then
+
+I'm going to read this column dot JSON
+
+now if you look at columns or JSON it
+
+contains all the data columns and from
+
+here onwards are all my locations so in
+
+my UI application I want to have a
+
+drop-down where I want to show all the
+
+locations and for that I'm going to
+
+write my first routine which will just
+
+give me locations so I will call that
+
+routine get location names just call it
+
+get location names which will return all
+
+the locations okay and the way you
+
+returned all the locations is using this
+
+JSON file method alright so let me just
+
+copy/paste some code here and what I'm
+
+doing here is I am returning a response
+
+which contains all the locations now
+
+what are my locations so for locations I
+
+am going to create a new file called
+
+util and util will contain all the core
+
+routines whereas the server will just do
+
+the routing of request and response so
+
+right-click on the server create a new
+
+file call it util so this is util dot pi
+
+which I am going to import here
+
+and just say import Yuto and util will
+
+have this function called get location
+
+names
+
+so this get location names routine just
+
+returns the location name so let's first
+
+write this routine and test it out okay
+
+so get location name should read the
+
+column dot JSON and it should return me
+
+the list of all the locations starting
+
+from this column because the first three
+
+columns are they are they are not
+
+location you know there are other
+
+features all right so let's read the
+
+column dot JSON file and then return
+
+those locations so I'm going to write a
+
+function called Lord saved artifacts
+
+this method will load the saved
+
+artifacts which is my columns of JSON
+
+and Bangalore home prices and I'm going
+
+to store both of these into a global
+
+variable so I will create two global
+
+variables in fact three global variables
+
+so these are the three global variables
+
+I have and locations understand the
+
+Skoll location will contain all the
+
+location so in this method I will just
+
+write that I'm loading the saved
+
+artifacts and then when I say global it
+
+will treat these two variable as a
+
+global variable here otherwise it will
+
+create just a local variable which won't
+
+be good
+
+so first lest let's open from the
+
+artifacts directory columns dot JSON
+
+file again we are reading the file hands
+
+are as F and you can do json dot load F
+
+cuz this file is a JSON file and you can
+
+call json dot
+
+load method on that we need to import of
+
+course adjacent module here and whatever
+
+object is loaded will be converted into
+
+a dictionary on which we can call this
+
+data columns key that will return me all
+
+my data columns and out of all those
+
+data columns starting with column number
+
+three are my location so 0 1 2 3 so we
+
+can use Python index slicing to get
+
+elements from the list starting with
+
+number 3 and you all know that we can
+
+use a syntax like this where I am saying
+
+start index is 3 : nothing nothing means
+
+take everything else and that would be
+
+my locations will also load a saved
+
+pickled model into underscore underscore
+
+model ok so let's say with open dot
+
+artifacts the name of the model which is
+
+this and since it's a binary model I am
+
+going to use RB as F underscore
+
+underscore model is equal to pickle so
+
+we are going to import the cup model as
+
+well
+
+pickle dot load F
+
+and I will say that loading the
+
+artifacts is done once this routine is
+
+done ghat location names can just return
+
+locations okay
+
+and you can run this core by
+
+right-clicking and saying run and when I
+
+do that I am getting none for obvious
+
+reasons because I did not call this
+
+method here so I need to call this
+
+method and when I run it again it says
+
+okay I have a spelling mistake so
+
+artifacts or defects so this is loading
+
+the artifacts into memory and it loaded
+
+it and after that it printed all the
+
+locations so you can see that my
+
+location names are correct see I got all
+
+these locations once that routine is
+
+done the second routine that you want to
+
+write is a function which can return you
+
+an estimated price given the location
+
+the square foot area BHK and bathroom so
+
+let's write that routine we'll call it
+
+get estimated price which takes few
+
+arguments these are the arguments that
+
+it takes and it should return me the
+
+price for this given features in order
+
+to return the price what we need to do
+
+is we have a model on which we are going
+
+to care call a predict matter you all
+
+know that when you have a skill on saved
+
+model you can call a predict method
+
+which will take an input which is your
+
+ax and then for that given input it
+
+should return the output which is the
+
+estimated price now the input that it
+
+will take here will be a two
+
+in an array and we are going to create a
+
+numpy array and we'll call it X and then
+
+for that ax I will wrap it up into the
+
+array so that it becomes two-dimensional
+
+array so what is my X X is my number
+
+array okay so let's import numpy module
+
+first here I'm going to create a numpy
+
+array with all zeros because we saw in
+
+our previous up2 not book that we need
+
+to have a numpy array with zeros so let
+
+me open the notebook that I had so you
+
+saw in this function so this is a pretty
+
+much the function that we used so I can
+
+actually copy this function now I don't
+
+have X dot columns here
+
+but what I have is underscore underscore
+
+data columns which is a simple Python
+
+list here it was in numpy array and
+
+that's why we used NP dot we're okay so
+
+we are not going to use NP dot there
+
+because it's a Python list and you know
+
+in a Python list to find an index you
+
+can call dot index method and whatever
+
+location you are getting you need to
+
+convert it into lowercase because
+
+remember that our column store JSON has
+
+all lowercase or locations and the
+
+behavior of Python lists dot index
+
+method is that if the element is not fun
+
+it throws an error that's why we are
+
+going to wrap it up in to try catch
+
+block like this try except and if it
+
+cannot find the index we will just
+
+initialize it to minus one and here the
+
+number of zeros will be equal to the
+
+length of data columns so we have
+
+square foot baths BHK and the specific
+
+location index will locate and then make
+
+that particular element one and the
+
+remaining elements will be zero we are
+
+using a dummy one hot encoding and that
+
+is the reason we have like so many
+
+columns like this so we are finding the
+
+appropriate column for a given location
+
+and setting that value to be one and
+
+remaining values are zero and once our
+
+model does a prediction we get a two
+
+dimensional array back
+
+and since our array has only one element
+
+we can access zeroth location in that
+
+element and that will give us the
+
+estimated price in the lakh rupees now
+
+this would be a float number so we are
+
+going to round the float number to two
+
+decimal places like this okay so my get
+
+estimated price function is pretty much
+
+ready and I'm going to call that
+
+particular function here so I have taken
+
+a regular location here and these two
+
+are actually other locations okay so let
+
+us right click on this run it and when I
+
+run it it's loading the artifacts in
+
+this line okay it says none type object
+
+has no attribute predict okay why does
+
+it say that all right I think it is
+
+saying that because underscore
+
+underscore model here should be a global
+
+okay so I forgot to define that the
+
+global so you can see that it predicted
+
+the price of two properties in first
+
+phase JP Nagar one was with three
+
+bedroom and three bathroom another world
+
+with two-bedroom two-bathroom you can
+
+say two-bedroom two-bathroom price is
+
+little less so first one was 86 lag the
+
+second one is 83 lakhs for these two
+
+other locations property prices
+
+seem now that my util methods are ready
+
+in my server dot pi I have created
+
+another endpoint and let's call it
+
+predict home price this takes a post
+
+method ok so HTTP POST again if you
+
+don't know what actually get an HTTP
+
+POST is you should pause this video and
+
+watch some other tutorials to clear your
+
+basics on how get and post work also if
+
+you don't want to know more about python
+
+flash server just search for some
+
+tutorial on flat server
+
+I had this dummy routine and which I'm
+
+going to implement now and the way it
+
+works is I have imported this request
+
+class and whenever we will be making a
+
+HTTP call from our HTML application we
+
+will get all the inputs in request dot
+
+form okay and those inputs will look
+
+something like this the request dot form
+
+will have an element called total square
+
+foot which we will convert it to float
+
+and store it in our local variable
+
+called total underscore sq ft and we
+
+will get other variables in a similar
+
+fashion once we have all these variables
+
+we need to simply call our util dot get
+
+estimated price function ok so here we
+
+are calling util dot get estimated price
+
+function where we are passing the input
+
+parameters and that will return us the
+
+estimated price back all of our code is
+
+returned and it is time to do some
+
+testing now for this we can use a
+
+postman application you can download it
+
+for free and the postman application
+
+allows you to test your HTTP calls okay
+
+so first we are going to test our get
+
+location names call so in the postman
+
+application you can select get here and
+
+I have the URL and after that I am
+
+mentioning my HTTP endpoint which is get
+
+location name this is the same thing
+
+which is mentioned here let's run
+
+our server now so you can run the server
+
+by executing Python space server dot pi
+
+command and when you do that here it is
+
+saying that my server is ready and it is
+
+running once the server is running you
+
+can pull in the postman application and
+
+specify like a get call you can specify
+
+post call as well and click on send
+
+button and you click on send see you are
+
+getting this response back which has all
+
+the locations okay so this go this call
+
+looks good let's move on to another call
+
+which is predict home prices so I have
+
+another tab here where I am saying
+
+predict home price and in the body since
+
+we are using JSON form you need to click
+
+form data where you need to specify all
+
+your key and values so what key and
+
+values are total square foot location
+
+BHK and bathroom so square foot is
+
+thousand location we are using phosphate
+
+JP Nagar pH can bathroom is 2 n 2 okay
+
+and when you make a sand call here it
+
+returned 83 lakh as an estimated price
+
+you can change bathrooms let's say 2
+
+let's say you have a bigger home with
+
+2,000 square foot area for bedroom and
+
+full bathroom when you send it will cost
+
+you one crore 68 lakh rupees all right
+
+so now my HTTP endpoints are ready and
+
+tested and my python flash server is
+
+kind of complete so it is now the time
+
+to build the UI so in the next video we
+
+are going to build the UI which will
+
+make these as to because with that video
+
+we will complete our application
+

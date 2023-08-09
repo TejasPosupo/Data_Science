@@ -1,0 +1,566 @@
+in this video we are going to download
+
+our data set into pandas and then
+
+perform data cleaning using some
+
+different techniques Here I am on Kegel
+
+comm I have provided a link to this data
+
+set in the video description below you
+
+can go to this link and click on
+
+download button to download this data
+
+set into a CSV so I have that CSV file
+
+here my data set looks something like
+
+this where I have area type of a liberty
+
+location size the square foot area
+
+etcetera and all of these are called
+
+independent variables and my dependent
+
+variable is price price is something
+
+that I am trying to predict okay
+
+the price here is in Indian rupees lakh
+
+rupees
+
+this is 39 lakh rupees flat this one is
+
+1 crore and 20 lakh rupees okay
+
+so remember that we are using supervised
+
+learning here and in supervised learning
+
+you need tagged all label data set ok
+
+tagged all level data set is basically
+
+you have your input value and your
+
+output value based on that you are
+
+trying to build your model now if you
+
+are not installed it already please
+
+install anaconda distribution this comes
+
+with data science technology stack which
+
+is jupiter notebook panda's python
+
+Escalon etcetera I have installed that
+
+already and I have created a new jupiter
+
+notebook here and imported few basic
+
+libraries that will need for this
+
+tutorial ok
+
+once these libraries are imported you
+
+should read the csv file that i just had
+
+open into a panda's data frame here you
+
+can see that i have my data frame loaded
+
+with all the data from the CSV file and
+
+when you run shape it shows you number
+
+of rows and number of columns in my data
+
+I have 13 thousand rows which is decent
+
+enough data set now let me first examine
+
+the area type feature and what I'm going
+
+to do here is
+
+I will uh print account of data sample
+
+in each of these area type categories
+
+and the way you do that is you group by
+
+your data frame by area type and then
+
+you a gregarious Evan samples where the
+
+area type is carpet area and you know
+
+these are different numbers now I'm
+
+going to keep my model very simple and
+
+for that reason I'm going to drop
+
+certain columns from my data frame okay
+
+now as such all of these columns are
+
+important but I'm going to drop less
+
+availability I'm going to just assume
+
+that availability is not important in
+
+deciding the final price then society
+
+then area type etc okay and this is how
+
+you drop those columns and let me do the
+
+F 2 dot head so after I drop those
+
+columns my data frame looks something
+
+like this where it has only location
+
+size total square foot bath and price
+
+now begins the data cleaning process
+
+data cleaning process starts with
+
+handling the any values and for that I
+
+will use ease null function on data
+
+frame when you run is not function and
+
+when you do dot some it will tell you
+
+the number of rows where particular
+
+column value is any for example I have
+
+total 73 rows where the value of
+
+bathroom is not available okay so I'm
+
+going to drop all these any values now
+
+you can actually do something else if
+
+you don't want to drop the column for
+
+example for bathroom if I don't want to
+
+drop this 73 columns what I can do is I
+
+can take a median of bathroom values and
+
+fill the any values with that median
+
+value okay but since my data set is
+
+13,000 rows and any rows are pretty
+
+small in number I can safely drop those
+
+rows okay after dropping them
+
+and by the way for dropping you can use
+
+drop any function and when you drop them
+
+and create this new data frame called
+
+df3 you will find that this doesn't have
+
+any any rows now once that is done I'm
+
+going to explore the size feature you
+
+can see here in the size that some
+
+values are to be HK but then there are
+
+some rows where it says four-bedroom so
+
+I want to really see what's going on
+
+with that particular column so I will do
+
+size and the f3 size will give you a
+
+pander series on which you can call
+
+unique function that will give you all
+
+unique values now you can see that for
+
+bedroom and for BH get they are
+
+essentially same so to take into account
+
+this kind of problems with the data set
+
+I will create a new column called BHK
+
+and the way you create a new column in a
+
+data frame is simply you can say
+
+something like this and this column is
+
+created based on the size column and
+
+what you want to do on this size column
+
+is apply some function okay now what
+
+type of function you want to apply you
+
+can take this string and you can
+
+tokenize it using the space and take the
+
+first token which is two so for example
+
+here is two here's four here's three
+
+and that will be your BHK value and to
+
+do that we can use python lambda
+
+function lambda x ax will contain the
+
+column value for each of the rows one by
+
+one and on those value you want to apply
+
+some transformation now what kind of
+
+transformation you want to apply
+
+so first let's say this X is 2 BHK you
+
+want to spread this string using space
+
+how do you do that X dot split so you do
+
+explore X not split and space okay this
+
+gives you two tokens out of which you
+
+want to take first token which is 0 okay
+
+and so let's say by doing this you are
+
+getting two or four etc but that is
+
+still a string which you want to convert
+
+to integer okay so we did this and now
+
+when you check our data frame you see
+
+this beautiful BHK new column being
+
+created where it has number of bedrooms
+
+in your apartment now when you do unique
+
+on this BHK column which is newly
+
+created column you'll find that you have
+
+these many different values of bedroom
+
+whole kitchen Wow there are homes with
+
+forty three bedrooms in Bangalore and I
+
+want to see like what kind of home that
+
+is so you can do the f3 dot b HK let's
+
+say show me anything which has b HK
+
+greater than 20 and you find two homes
+
+like one home is forty three bedroom but
+
+the total square foot is 2400 see this
+
+looks like an error to me you cannot
+
+have 2400 square foot home with 43
+
+bedroom okay so we are going to clean up
+
+these errors little later in order to
+
+tackle these errors actually I need to
+
+explore this total square feet feature
+
+as well okay and first thing I want to
+
+make sure is that this feature is
+
+available in a single number okay
+
+so first let's let's quickly check
+
+something so I will do the f3 dot total
+
+sqft dot unique for example okay while
+
+doing that one thing I noticed is see
+
+sometimes I see this kind of value which
+
+is not just a single value it is a range
+
+I want to convert this into a single
+
+number and one of the ways is I can take
+
+an average of these two numbers okay
+
+so first let me see
+
+what kind of variations I have in this
+
+total square foot feature and in order
+
+to do that what I can do is I can detect
+
+if a given value in total square foot
+
+column is float or not so first I will
+
+define a function called YZ float ok and
+
+the way this function works is I will
+
+try to convert of value in total square
+
+foot column into float and if it is not
+
+a valid value such as this rain it will
+
+come into this accept block you know it
+
+will throw the exception when I try to
+
+convert it into float and here I can
+
+return false otherwise I can return true
+
+now I have this DF 3 data Fame on which
+
+I will take total square foot column and
+
+apply this is float function when I
+
+apply this each float function it will
+
+return true but I want to look at the
+
+values where it is not a valid float
+
+number so for that I can do this one
+
+this is a Nega top eration this will
+
+return a data frame back to me you can
+
+see that see and if you want to look at
+
+just few values you can do dot head here
+
+you can see I got all these ranges okay
+
+if I look at more values I also see
+
+cases like this where the value is in
+
+square meter it is in porch so you can
+
+see this is a typical problem in any
+
+data science project where your incoming
+
+data is not uniform it is unstructured
+
+it contains outliers it has data error
+
+it has a lot of problems and majority of
+
+the time that data scientists pants is
+
+on data cleaning so we are doing that
+
+data cleaning right now so to handle
+
+these non-uniformities what I'm going to
+
+do is anytime I have this range I will
+
+take an average
+
+of these two numbers anytime I have
+
+values like this I will just ignore
+
+those rows okay now if you want to make
+
+your model little more sophisticated you
+
+can do a unit conversion between square
+
+meter in into square feet you can also
+
+convert porch into square feet etc but I
+
+am going to just take all these range
+
+values okay and for that I am we are
+
+going to write a Python function which
+
+takes this range as an input and it
+
+returns the average value okay so that
+
+function I'm just going to copy paste
+
+here that function looks like this where
+
+it takes input string we split it using
+
+this this sign and then if the tokens
+
+are two we convert individual tokens
+
+into float number and then we take the
+
+average okay
+
+otherwise we if let's say the number is
+
+your normal number then we convert it
+
+into a float okay
+
+so let's taste this function so first if
+
+you give this function is simple string
+
+let's say - 1 6 X that it converts into
+
+float because it will go into this line
+
+here and it will convert and let's say
+
+if you take this particular range you
+
+see what it did is it took the average
+
+of these two numbers and if you have
+
+cases like this let's say square meter
+
+let's see what it will do with that guy
+
+so here see did not return anything
+
+which is fine so now I will apply this
+
+function onto my total square foot
+
+column and create a new data frame okay
+
+so remember that we are creating a new
+
+data frame at each stage in our data
+
+processing pipeline okay so until now we
+
+had DF 3 now I'm going to create a new
+
+data frame for DF 4
+
+is a copy of df3 when you do DF 3 dot
+
+copy it will create a deep copy of your
+
+original data frame and on this data
+
+frame my total square should column will
+
+be equal to DF for total square foot on
+
+which I will apply this function now in
+
+apply you can write a lambda function or
+
+you can write a native Python function
+
+science is going to apply this function
+
+okay after you apply the function you
+
+can do the F for dot
+
+okay you can see that I have total
+
+square foot here now if you want to look
+
+at particular index so here I had 20 128
+
+50 and the index was 30 so in next 30
+
+you can access by saying DF for dot l OC
+
+lock location basically and you can see
+
+that my total square foot is 2475 2475
+
+because see I had 20 128 50 and if you
+
+take the average of these two numbers
+
+I'll just take an average of these two
+
+numbers and that will be 24 75 okay so
+
+this looks pretty good so so far I have
+
+cleaned up my total square foot column I
+
+have also handled my ne and I have
+
+removed some unnecessary features so my
+
+data frame looks much better compared to
+
+what I loaded it up with in the initial
+
+phase okay so that's all I had for this
+
+video in the next video we are going to
+
+cover some of the feature engineering
+
+and dimensionality reduction techniques
+

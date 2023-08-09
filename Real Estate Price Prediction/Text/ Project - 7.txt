@@ -1,0 +1,496 @@
+in last video we build a Python flask
+
+server which is going to be used as a
+
+back-end for our website let's build
+
+that website in this video we only have
+
+these three folders where server folder
+
+contains our server the model folder
+
+contains the model in the jupiter
+
+notebook that we built and the client
+
+folder is empty here we are going to
+
+build our website or our UI it is going
+
+to be a simple HTML CSS javascript
+
+website ok so I'm going to create three
+
+files here and let's call them app dot
+
+HTML and app dot CSS and the third one
+
+is apt or J's in any simple web
+
+application you will have three files
+
+HTML will contain the structure of your
+
+UI your elements your an attempt tommy
+
+of the application CSS is a cascaded
+
+stylesheet it will contain the
+
+stylesheet like the color look and feel
+
+of the application javascript will
+
+contain the dynamic code which will make
+
+HTTP calls to our back-end retrieve the
+
+data so this is more of a server
+
+communicator you know it communicates
+
+with server gets you the data and runs
+
+any dynamic code if you don't know the
+
+fundamentals of HTML CSS and JavaScript
+
+then you should go and find some other
+
+online resources and get those
+
+fundamentals clear you need just basic
+
+understanding of these three concepts in
+
+order to continue this tutorial ok as I
+
+have this three simple blank files
+
+created I am going to open this into
+
+visual studio code visual studio core is
+
+an editor from Microsoft it is a very
+
+nice fast lightweight IDE so that's what
+
+I am going to
+
+use for my UI code editing okay so I
+
+have these three files you can see these
+
+three files are blank right now and I'm
+
+going to start with my HTML so for HTML
+
+I already have the HTML code ready so
+
+I'm just going to copy paste okay so
+
+what I have here is any HTML we'll have
+
+two sections one is head
+
+another one is body okay so this is my
+
+head section where I have a title of my
+
+application I have I'm going to use
+
+jQuery to make HTTP calls for that I
+
+have imported this jQuery J's file
+
+also I'm going to include F F dot J's
+
+and F dot CSS this is more like you know
+
+in Python you import the file so this is
+
+similarly we are going to include GS and
+
+CSS here from here my main application
+
+body starts so in my main application as
+
+you know from our UI mock-up we'll have
+
+the area will have BHK okay area will be
+
+an input so you can say this is an input
+
+entry then you have BHK which is a
+
+button bar okay we have a bathroom
+
+option that is also a button bar and our
+
+options are one bathroom to fire okay
+
+you can add more if you want to then the
+
+last one is location so location is and
+
+it drop down which we are going to
+
+dynamically populate in our GS file all
+
+right then we have CSS so the CSS are
+
+all these classes see here I'm saying
+
+class location so this location class I
+
+need to define into my CSS file again I
+
+am copy pasting the code because this is
+
+not really an HTML and CSS tutorial so
+
+just to save time
+
+I'm just copying and pasting here okay
+
+so here are my CSS for example we just
+
+looked at location class so a location
+
+if you
+
+here this is the class okay and these
+
+are all the UI elements you have
+
+background color you have fond which
+
+kind of phone you want to use on
+
+application etc okay now let's run the
+
+application when a double-click on app
+
+dot HTML it looks something like this so
+
+it has a nice UI where all of our UI
+
+elements are available and the locations
+
+are still hard-coded because we have not
+
+written app dot J's file J's file is the
+
+one which makes actually because and and
+
+gets the data from the backend so now
+
+that our UI looks pretty much good we
+
+are going to write F dot J's file so app
+
+dot J's file is here so let's first
+
+include app dot J's file and this is how
+
+you include the after J's file and in
+
+this first routine we are going to write
+
+is it will lower the locations you can
+
+see the location drop-down has only
+
+hard-coded values these two which we
+
+hard-coded in at F dot HTM as you can
+
+see that we have these two hard-coded
+
+location okay but if you want to get
+
+these locations from the backend and how
+
+do you do that
+
+so in JavaScript there is this call core
+
+called onload so you can say window dot
+
+onload is on page load function which we
+
+are going to define here so I can write
+
+this function call on page load which
+
+will call certain routines when the page
+
+is loaded when the HTML page is loaded
+
+the first thing we want to do is lower
+
+the locations okay and the way you load
+
+the locations is by writing this code so
+
+here I am making the same HTTP call
+
+which we tested using postman and you
+
+can use dollar this is for jQuery when
+
+you say get it is making a get call to
+
+that same URL
+
+which we tested using postman here so
+
+you see this is the URL we call and we
+
+got this particular response back so the
+
+same thing in JavaScript here in the
+
+data you will get that response back and
+
+once you have the response you want to
+
+do data dot locations because you can
+
+see here we have data dot location that
+
+will be the list of locations and then
+
+you I trade through those locations one
+
+by one and add those locations into our
+
+drop-down okay so let's taste this code
+
+out so here you can just refresh the
+
+page and when you refresh the page you
+
+can see that now this contains all the
+
+locations in Bangalore City once the
+
+locations are loaded now we can
+
+implement a function for estimate price
+
+click OK and on estimate price click we
+
+have on on click event we have this
+
+function javascript function which is
+
+going to be run so we can write that
+
+function here and that function name is
+
+on estimate price click so what do you
+
+want to do on our estimated price click
+
+well you want to get the values of all
+
+these features area B HK and bot
+
+okay so let's first get the values of
+
+these UI elements for that we are going
+
+to write two more functions which will
+
+be get bath value and get BHK value and
+
+this is how those functions look and
+
+these functions are iterating through
+
+the button bar that we have and they are
+
+giving the value back so if on your UI
+
+you have clicked let's say button number
+
+three then this particular function will
+
+return number three and similarly get
+
+BHK will return the
+
+eh k so let's call these functions here
+
+in our main function
+
+we are going to call those functions
+
+here I get the value of sqft BSK
+
+bathroom location etc okay and my URL
+
+for the price prediction endpoint is
+
+predict home price and the way you call
+
+it is using jquery's post call so this
+
+is jQuery dollar dot is a jQuery object
+
+you're making a post call because you
+
+saw that here in predict home price
+
+function we made a post call with all
+
+these inputs and we got this as an
+
+output so once we make this post call in
+
+this function we get an output back and
+
+in the output there is an element called
+
+estimated price you can see estimated
+
+price here which contains the price in
+
+Indian Lac rupees
+
+so all we are doing is we are painting
+
+this EST price HTML element so all we
+
+need to do is just refresh the page so
+
+my page is refreshed and let's predict
+
+the price of Raja Jean Nagar so when you
+
+click on estimated price it says that
+
+the price of this property is to corrode
+
+25 lakh rupees if you have three-bedroom
+
+three-bath it will be a little more then
+
+depends on a location ok so if you have
+
+different location let's say never Nagar
+
+the same property price is much less
+
+because never Nagar you know Regina
+
+Nagar is probably a more expensive area
+
+ok if you have much bigger home like the
+
+double size then see thousand square
+
+foot was 30 lakh then the 2 thousand
+
+square foot is 110 leg ok so our
+
+application is now ready it is working
+
+fine locally ok in production if you
+
+want to deploy
+
+there are some sets of steps and
+
+procedures that you need to follow but
+
+in a typical work and one and a data
+
+scientist goes through this process
+
+where he built models first then the
+
+Python flash server and the HTML
+
+application sometimes there is a
+
+software engineering team which will be
+
+responsible for building this UI and
+
+back-end application and data scientists
+
+will just build the model that is the
+
+case in majority of the data science
+
+roles but depending upon the your job
+
+profile or or the company you might also
+
+build these applications so that you can
+
+at least test them so it's important to
+
+have some knowledge of web development
+
+or some UI development knowledge and
+
+some knowledge of Python flash server s
+
+etcetera how to write write HTTP
+
+backends etcetera if you want to be a
+
+successful data scientist all right so I
+
+hope you enjoyed this tutorial series
+
+this should have given you a very good
+
+understanding on how a data scientist
+
+working for a big firm builds an
+
+application and 2n so just to summarize
+
+we first build our model we did data
+
+cleaning with a dimensionality reduction
+
+feature engineering model building
+
+outlier detection all of that then we
+
+moved on to writing a Python flash
+
+server which was serving HTTP GET and
+
+post requests and the third element was
+
+our UI or our website which will make
+
+the calls to the HTTP back-end and it
+
+will return the it will get the response
+
+back okay so very build the whole
+
+application and to end I hope you
+
+enjoyed this series and if you liked it
+
+please give the thumbs up to all the
+
+videos please share it with your friends
+
+anyone who is a new data science aspire
+
+and would find this series to be very
+
+very useful thank you very much for
+
+watching bye
+

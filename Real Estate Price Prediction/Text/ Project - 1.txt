@@ -1,0 +1,100 @@
+we are going to start working on a real
+
+life data science project today in this
+
+tutorial series I will give you a
+
+glimpse of what kind of steps and
+
+challenges a data scientist working for
+
+a big company goes through in his
+
+day-to-day life assume that you are a
+
+data scientist working for a real estate
+
+company such as Zillow calm here in u.s.
+
+or magic bricks calm in India your
+
+business manager comes to you and asks
+
+you to build a model that can predict
+
+the property price based on certain
+
+features such as square feet bedroom
+
+bathroom location etc on Zillow calm
+
+this feature is already available they
+
+call it as estimate it shows you the
+
+Zillow estimated price just to make this
+
+project more fun we are also going to
+
+build a website using HTML CSS in
+
+JavaScript which can do home price
+
+prediction for you in terms of project
+
+architecture first we are going to take
+
+a home price data set from Cagle calm
+
+this is for a bangalore city in india
+
+and using that data set will build a
+
+machine learning model while building
+
+the model will cover some of the cool
+
+data science concepts such as data
+
+cleaning feature engineering
+
+dimensionality reduction outlier removal
+
+etcetera once the model is built will
+
+export it to a pickle file and then will
+
+write a Python flash server which can
+
+consume this pickle file and do price
+
+prediction for you this Python flash
+
+server will expose HTTP endpoints for
+
+various requests and the UI written in
+
+HTML CSS and JavaScript will make HTTP
+
+GET and post calls in terms of tools and
+
+technology we'll use Python as a
+
+programming language will use pandas for
+
+data cleaning Madrid flip for data
+
+visualization SK learn for model
+
+building Python flask for a back-end
+
+server HTML CSS and JavaScript for our
+
+website overall you will learn a lot and
+
+it will be a very interesting project
+
+for you so without wasting any more time
+
+let's get started
+

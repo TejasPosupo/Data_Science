@@ -1,0 +1,1066 @@
+I'm going to show you how to deploy
+
+machine learning model to production
+
+today we are going to deploy Bangalore
+
+home price prediction website to Amazon
+
+ec2 on the same cloud ec2 instance we
+
+will have our website as well as our
+
+Python flask server running eventually
+
+you will be able to lower this kind of
+
+URL in a browser and the website will be
+
+fully functional this is a temporary URL
+
+that Amazon gives but if you buy a
+
+domain let's say abc.com from GoDaddy
+
+then you can map that to this URL and
+
+then after that then you do abc.com it
+
+will load this website and it will be
+
+fully functional it is going to be so
+
+much fun
+
+deploying your code to production and
+
+running it end to end so please watch
+
+till the end here is the brief
+
+architecture of our application in
+
+Amazon ec2 instance I will be using
+
+nginx as my webserver nginx is a light
+
+web server which can solve two HTTP
+
+requests when you load the URL into your
+
+web browser it will go to our instance
+
+and from nginx web server it will return
+
+all app our app dot HTML GS and CSS file
+
+back to the server after that when you
+
+click on a button to predict the home
+
+price from your JS file from your
+
+browser it will again make a call to
+
+nginx server and we'll be using a
+
+reverse proxy set up on nginx
+
+to route all our requests less API
+
+request to our ply Python flash server
+
+which will be running on the same ec2
+
+instance and using the saved ml model to
+
+solve the prediction request so this is
+
+just a brief architecture we are going
+
+to first set up nginx in development
+
+environment on Windows and once the
+
+setup looks ok we'll do the same setup
+
+on Ubuntu server in our ec2 instance
+
+first download nginx by googling this
+
+you will get this link go to that link
+
+click on this particular link to
+
+download the zip file unzip the zip file
+
+so you go to downloads I downloaded the
+
+file here I unzipped it and then I
+
+copied that folder
+
+in to see Program Files if I go here and
+
+search for nginx I have this folder in
+
+this one the configuration file is very
+
+important so if you go to cons and click
+
+on nginx conf and edit that file here
+
+you will notice couple of thing but
+
+before we go into this file let's test
+
+that this server is looking good so for
+
+that what I will do is I will go to here
+
+double click on this so that has started
+
+the web server you can see that in two
+
+processes here you can see the web
+
+server is started what it helps you do
+
+is when you do localhost like this you
+
+get welcome nginx HTML page so by
+
+default now it is going to a specific
+
+directory and loading the HTML page when
+
+you say localhost so what is that so
+
+that is specified into nginx kampf
+
+so here when you look at it it is saying
+
+that location is root is HTML and in
+
+that if you find either index dot HTML
+
+or index dot HTM or render that file ok
+
+so let's see HTML folder so here I have
+
+HTML folder in that when you see index
+
+dot HTML it is rendering this file in
+
+the browser so if you look at this file
+
+you can see welcome to nginx so this is
+
+the file that is being rendered here so
+
+now I what I want to do is when I say
+
+localhost I want to render my Bangalore
+
+home prices page how can I do that I
+
+have that folder into my C this
+
+directory so all I have to do is instead
+
+of HTML directory I have to make this my
+
+default directory so that it loads a
+
+plot' HTML in order to do that what you
+
+have to do here is instead of HTML just
+
+specify that path so I'm going to
+
+change this to this so now by default
+
+Venice will localhost it will go into
+
+this directory and it will look for
+
+either index dot HTML index dot HTM but
+
+our file name is AB dot HTML so you can
+
+just add F dot HTML here so now the file
+
+is saved you need to kill the old server
+
+and start the new one so I'm gonna end
+
+the process and then go to nginx
+
+directory double click on it
+
+so the nginx server is started again you
+
+can see it here and when I go and here
+
+run localhost
+
+it is now loading my website so you can
+
+see that now you don't have to load a
+
+specific HTML page you can just say
+
+localhost and it will load the website
+
+what it is not doing however is it is
+
+not rendering and this estimate price is
+
+not working etcetera so we have to make
+
+that working for that you can just go to
+
+your app dot GS and in app dot J's what
+
+I did is see previously I had this core
+
+where I was making HTTP call on my local
+
+host on five thousand port specific port
+
+ok I want to change that and I want to
+
+just say /ap I get location name I don't
+
+want it to be bounded by specific IP
+
+address and a port it should be all
+
+dynamic again this code base is covered
+
+in our previous seven tutorials for data
+
+science project of predicting home
+
+prices in Bangalore so if you are not
+
+seen those tutorials I highly recommend
+
+watching them same way I have changed
+
+this URL as well for getting a location
+
+name so you can see that now it's not
+
+hard-coded to specific port and IP it is
+
+very dynamic it is syncs less APs less
+
+predict home price now when it was less
+
+API how does it know which server to go
+
+to
+
+okay so we are going to run our Flash
+
+server on five thousand port only we
+
+need to configure the reverse proxy in
+
+nginx web server so that whenever do
+
+localhost / API slash predict home price
+
+it routes those requests to PI thousand
+
+port so we can do all of that in the
+
+same configuration file and the way to
+
+do that would be this so we can copy
+
+this here so let's see so you can do
+
+that copy so just add this particular
+
+section here in your comm file what this
+
+is saying is whenever I get any HTTP
+
+call which has less API and after's less
+
+it could be anything okay
+
+that request should be routed to the
+
+same host but the 5,000 port so you can
+
+see that we are dynamically routing
+
+slash API request to the server running
+
+on this specific port and once you do
+
+that you need to again terminate your
+
+nginx process and kind of restart your
+
+nginx once again so I'm gonna restart it
+
+now that my file is saved in my reverse
+
+proxy is set up I am running it so now
+
+my new server is running with the new
+
+configuration I need to now run Python
+
+flash server so python flash server is
+
+in the server directory so I will just
+
+say Python server dot PI so this part is
+
+same the same flash server is running on
+
+five thousand port or its server is up
+
+and running let's taste our website now
+
+so when i refresh you can see that it
+
+loaded all the locations and when you
+
+estimate the price is working so now you
+
+don't have to do specific port anything
+
+just say localhost and your whole
+
+website is up and
+
+running you can press f12 to see the
+
+incoming and outgoing traffic if you
+
+don't know about how to debug JavaScript
+
+code in chrome you should learn it it is
+
+going to be very very beneficial in the
+
+network requests when you press f5 again
+
+to refresh you will see get location
+
+name request and in the response you see
+
+that this is the response returned by
+
+our Python flash server when you click
+
+on estimate price again you see new
+
+request predict home price where the
+
+estimated prices return like this you
+
+can go to sources to see the source code
+
+you can also set a break point like if
+
+you click here it will set a break point
+
+if you want to debug it you can just say
+
+f5 and fic it gets you here in a break
+
+point so if you do like either do f10 or
+
+click on this step into next function
+
+call and it will show you all the states
+
+so this debugging could be very useful I
+
+have another breakpoint here and if I
+
+just click on this it will come here and
+
+you can just see in the data that you
+
+got this location at I back you can see
+
+that look data here you see data
+
+location so you got all those locations
+
+back here my local setup looks good now
+
+let's move on to cloud you can go to AWS
+
+console sign into the console using your
+
+Amazon account you can create this
+
+account for free once you are here type
+
+in easy to Amazon AWS offers different
+
+services ec2 is basically virtual
+
+machine in a cloud they also have
+
+storage service which is dc-3 they have
+
+Amazon
+
+extract sage make all different services
+
+we are interested in ec2 once you go
+
+here we are going to create a virtual
+
+machine ok so you'll click on launch
+
+instance
+
+here you can select a specific machine
+
+you have different option there is Red
+
+Hat
+
+these are like different versions of
+
+Linux we are going to use Ubuntu bit so
+
+you can just say select and we will be
+
+using free tire so again Amazon will
+
+charge you if you your usage goes beyond
+
+certain points so whatever we are doing
+
+is pretty much it requires less
+
+resources so we are going to use a free
+
+tire I will skip through all these steps
+
+and then because the default settings
+
+that Amazon is giving they're good they
+
+are giving me eight gigabytes storage on
+
+my virtual machine which is okay I will
+
+go to configure security step and create
+
+security group name so I will just say
+
+Bangalore home prices okay that's my
+
+security group name here I want to add a
+
+rule saying that for all stdp
+
+so click on st DB HTTP request are sold
+
+on port 80 HTTP is sold on port
+
+843 so if you do HTTP it is port 443
+
+this is the standard and I want to add
+
+these two so that from outside world
+
+anyone can call my web server and they
+
+can make HTTP requests okay we are going
+
+to make HTTP request from your local
+
+Chrome browser hence these two rules are
+
+required now say review and launch so
+
+this is the review okay these are the
+
+rules instance details storage details
+
+see storage 8 gigabyte or 0 machine is
+
+pretty small click on launch here you
+
+need to choose a key pair so let's
+
+create a new key pair so I will say
+
+create new pair and I will say Bangalore
+
+home prices bhp and then download key
+
+pair so this is are downloading a PE M
+
+file which is a mess
+
+ways of authentication so that when you
+
+connect to their ec2 cloud server you
+
+don't have to specify password but you
+
+can specify this PE M file which will
+
+kind of serve as a password so this file
+
+I'm going to copy so you can see ctrl C
+
+and go to your users directory my user
+
+directory name is Hiro and here go to
+
+dot as a such directory and control V so
+
+now your dot PE M file is saved here you
+
+make sure you save this file because
+
+that is an important step now click on
+
+launch instances so it will take few
+
+seconds or a few minutes to launch your
+
+instance you can go to view instances
+
+here and it will show you all the
+
+running instances or pending instances
+
+so I have this pending instance I I have
+
+one more instance which is running but
+
+ignore that for you you'll be seeing
+
+this as your pending instance so we are
+
+waiting for that to be initialized you
+
+can see that my new ec2 instance is up
+
+and running the next step is to connect
+
+it using SSH client so what we are doing
+
+is from your local Windows machine you
+
+are connecting with the ec2 instance on
+
+cloud for that you can use git bash so
+
+if you have not installed get bash so
+
+git bash windows just download and
+
+install it it is again a free software
+
+on that type in SSH - I I is your key
+
+location so if you remember we we saved
+
+PHP dot p.m. in this location and then
+
+the the ec2 instance identifier so here
+
+if you click on this and if you say
+
+connect it will give you the connect
+
+instruction so the connect instructions
+
+is this so this is user at Public DNS
+
+for that instance so I am
+
+to copy-paste here yes and now I'm
+
+connected to that instance if you look
+
+at PWD see I mean that home ubuntu
+
+directly now I am on cloud whatever I am
+
+doing on this Linux machine that is
+
+happening on Amazon AWS cloud you can
+
+see it will have say different directory
+
+this is a Linux operating system now now
+
+let's copy all our code into cloud
+
+machine using winscp so winscp is icon
+
+is here i am going to double click on it
+
+to launch it and now here you want to
+
+connect to ec2 instance so what is your
+
+hostname the hostname is here so just
+
+control-c control-v your username is
+
+Ubuntu the password is specified by that
+
+dot p.m. ec2 here is not using any
+
+password we are using that dot PE M
+
+authentication key so here click on
+
+authentication and in private key go to
+
+that directory see users veral dot SSH
+
+here click on all private keys so our
+
+private key was BSP dot PE m when you
+
+say open it needs to convert that into
+
+PP k file because pootie understands PP
+
+k hence you can just say ok and it will
+
+do auto conversion from dot PE m2 dot P
+
+PK fire so you can just say save okay
+
+now you got PP k okay
+
+login so now it's connecting to our
+
+cloud servers of not connected
+
+successfully you can see whom Ubuntu
+
+there are no files here so here you can
+
+click on this icon and go to different
+
+directories so my codebase is in C PI
+
+data science file so see I have
+
+Bangalore home prices where I have
+
+client models server all the
+
+files so I'm not going to copy the
+
+entire folder so you can just drag and
+
+drop so this will copy the files from
+
+local machine to your cloud server and
+
+once the copy is over you can come here
+
+and in your present working directory
+
+when you do LS you will see Bangalore
+
+home prices here now we can install
+
+nginx on our Ubuntu server for that you
+
+can first run sudo apt-get update this
+
+will update all the packages that you
+
+have locally on this particular ec2
+
+instance once that is done we can run
+
+the same command but this time let's
+
+install nginx ngi NX and that will
+
+install nginx web server on ec2 apt-get
+
+is a way to install software on ubuntu
+
+my nginx is installed perfectly fine you
+
+can check the status of nginx by it
+
+saying sudo service and genic status so
+
+this is saying it's running so when we
+
+install it it not only installed it it
+
+started the server as well now how can
+
+we confirm that this service is running
+
+fine for that you can load the web URL
+
+into your browser so for our server the
+
+web URL is this when I copy/paste that
+
+web URL see it is saying that it is
+
+running nginx on that machine I just
+
+change the font size and a background
+
+color to make it look a little more
+
+better now here also nginx server is by
+
+default rendering some HTML okay so when
+
+you go here and when you see welcome to
+
+nginx file where does this it get this
+
+file from we just need to replace this
+
+HTML with our Bangalore home prize home
+
+page so let's check that so the nginx
+
+folder structure is little the
+
+on Ubuntu versus Windows the directory
+
+is this it is an ET see okay so this is
+
+the directory if you do all the files
+
+these are the files it has and if you
+
+look at the nginx comm file so let's
+
+check the nginx conf file so this file
+
+is actually pointing us to this site
+
+enabled directory okay and from site
+
+enable directory it is rendering that
+
+HTML file so now let's look at the sites
+
+enable directory so sites enable
+
+directory has this default for it has
+
+only one file which is a default and
+
+when you look at the default file the
+
+default file root is 4 is Val www HTML
+
+and when you look at bar
+
+www HTML index dot this HTML you can see
+
+that welcome to nginx so this is the
+
+HTML page that is being rendered here
+
+all we want to do is change this default
+
+page to Bangalore home price prediction
+
+home page which is in home Ubuntu
+
+directory now let's go back to our sites
+
+enable so whatever is in the site's
+
+enable directory it will use that as a
+
+home page for port 80 default HTML
+
+rendering and here there is only one
+
+file if you do ll you will see that it
+
+is actually a symlink
+
+to sites available so the general
+
+practice in nginx is that the
+
+configuration files are kept inside are
+
+available and there is a symlink that
+
+you create into sites
+
+enabled ok so first of all I want to
+
+disable the default configuration so I
+
+can just say pseudo unlink default so
+
+now I don't have default file here
+
+because I don't want that
+
+and I want to go to sites available now
+
+you can see that sites available has
+
+default file as well and I want to
+
+create one more file here called bhp
+
+Kampf so I will do wim bhp dot coms and
+
+this configuration file will point me to
+
+my Bangalore home prices directory now
+
+if you go to my github in the on this
+
+particular link which I'm going to
+
+provide in the video description below I
+
+have given the B hp.com file just to
+
+save some typing time so you can just
+
+copy paste that let me explain so what
+
+this is doing is you are running a
+
+server on port 80 which is a standard
+
+for HTTP request you are just giving
+
+some server name and your route it is
+
+home open to directory so remember on
+
+winscp in home ubuntu we have bangalore
+
+home prices client and upload HTML is
+
+our home page so that's what we are
+
+doing we are saying go to this route and
+
+look for F dot HTML file and it will
+
+load that file this is our reverse proxy
+
+setup where it is saying that on the
+
+same server if you gets less API slash
+
+calls then pass them to 5000 port and on
+
+the PI thousand port we will be running
+
+over python flash server okay so let's
+
+save this file so now I have two files
+
+PHP calm and default and I will create a
+
+sim link in my sites enabled the way you
+
+do symlink is by running this command so
+
+using this command ok let me just make
+
+it smaller
+
+okay using this command I am creating a
+
+symlink
+
+when you do ll now see the sim link is
+
+created you can see there is a sibling
+
+for bhp calm okay and beat-beat calm
+
+look something like this
+
+alright now let's restart our nginx
+
+server so that it can use this new
+
+configuration whatever is in this
+
+particular directory it is going to use
+
+that configuration ok so we can run sudo
+
+service nginx
+
+restart and now check the status so the
+
+a status is saying just five second ago
+
+I started this servers it is up and
+
+running now go to your browser refresh
+
+the page and you can see that now it is
+
+loading your homepage for the website
+
+okay so this part looks good but still
+
+the call to the backend to the Python
+
+flash server is not working you can see
+
+choose location is not there estimate
+
+price is not working and if you do f12
+
+if you refresh in the network you will
+
+see that this this request is failing
+
+with fire too bad gateway well obviously
+
+because our python flash server is not
+
+running on that machine so we need to
+
+run it so just go to get bash I am going
+
+to now start my server for that you can
+
+go to home directory server and just
+
+start the server now before the we start
+
+the server we have to install couple of
+
+things we have this service this machine
+
+is blank it doesn't have all the modules
+
+which are required by our server so if
+
+let's do LS so this particular directory
+
+has a file called requirement dot txt so
+
+what is requirement dot txt let's check
+
+that requirement dot txt has all the
+
+Python modules that we need for our
+
+back-end server so you are going to
+
+install that by running first let's get
+
+beep 3 so first let's check if python 3
+
+is
+
+so when I run Python 3 I get it so
+
+Python 3 is already installed
+
+let's see pip 3 is there so picture is
+
+not there and they're saying ok install
+
+it using this command file just install
+
+it so install if 3 first it will take
+
+few seconds and then P 3 gets installed
+
+now use pip 3 to install all the
+
+requirements what what this will do is
+
+it will go to requirement dot txt look
+
+at all the modules and install all of
+
+them all my modules are installed now I
+
+can start my server python 3 server dot
+
+pi the server is up and running on this
+
+localhost 5,000 port and now refresh
+
+this page when you refresh it you see
+
+wallah all the locations are here and
+
+click on estimate price and now your
+
+code is working see now you have fully
+
+functional website hosted on Amazon ec2
+
+cloud you can then go to GoDaddy or
+
+Bluehost by the domain Bangalore home
+
+prices be hp.com map it to here and then
+
+later on you can run PHP calm BSP calm
+
+and it will load this website and it
+
+will be up and running whatever code we
+
+covered in this tutorial I have it
+
+available on my github I am going to
+
+provide the link into video description
+
+below the github readme file has a
+
+useful instruction the kind of commands
+
+that we went over in this particular
+
+tutorial so look at that readme file and
+
+try to deploy the model on your own
+
+practicing on your own is very important
+
+and Amazon ec2 free tire instances are
+
+you don't have to pay any money for it
+
+so just go try it out let me know how it
+
+goes if you have any question post in
+
+the comment I try to answer as many
+
+comments as possible also if you liked
+
+the video give it a thumbs up
+
