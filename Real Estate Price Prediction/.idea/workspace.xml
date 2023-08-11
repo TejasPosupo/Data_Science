@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="838c8d42-a9b1-4573-9e97-666ee2b2069e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/server/server.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bengaluru Data Set.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bengaluru_House_Data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/External APPRAISAL _form.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Major Project report format.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text/ Project - 1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text/ Project - 2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text/ Project - 3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text/ Project - 4.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text/ Project - 5.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text/ Project - 6.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text/ Project - 7.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text/8 Deploy.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oooooo/client/app.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oooooo/client/app.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oooooo/client/app.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oooooo/client/img/bangaluru.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oooooo/model/Bengaluru_House_Price_Pridicition.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../oooooo/model/Bengaluru_House_Price_Pridicition.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oooooo/nginx_files/bhp.conf" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: -1
+}</component>
+  <component name="ProjectId" id="2TmTfAeZk2ruNkLnCmZj3ftxBbL" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;ML&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="838c8d42-a9b1-4573-9e97-666ee2b2069e" name="Changes" comment="" />
+      <created>1691647361012</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1691647361012</updated>
+    </task>
+    <servers />
+  </component>
+</project>
