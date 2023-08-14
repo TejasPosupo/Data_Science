@@ -1,12 +1,12 @@
-from flask import Flask, request, jsonify
+import flask
 import util
 
-app = Flask(__name__)
+app = flask.Flask(__name__)
 
 
 @app.route('/get_location_names', methods=['GET', 'POST'])
 def get_location_names():
-    response = jsonify({
+    response = flask.jsonify({
         'locations': util.get_location_names()
     })
     response.headers.add('Access-Control-Allow-Origin', '*')
@@ -16,12 +16,12 @@ def get_location_names():
 
 @app.route('/predict_home_price', methods=['GET', 'POST'])
 def predict_home_price():
-    total_sqft = float(request.form['total_sqft'])
-    location = request.form['location']
-    bhk = int(request.form['bhk'])
-    bath = int(request.form['bath'])
+    total_sqft = float(flask.request.form['total_sqft'])
+    location = flask.request.form['location']
+    bhk = int(flask.request.form['bhk'])
+    bath = int(flask.request.form['bath'])
 
-    response = jsonify({
+    response = flask.jsonify({
         'estimated_price': util.get_estimated_price(location, total_sqft, bhk, bath)
     })
     response.headers.add('Access-Control-Allow-Origin', '*')

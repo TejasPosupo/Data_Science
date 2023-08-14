@@ -5,29 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="838c8d42-a9b1-4573-9e97-666ee2b2069e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/server/server.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bengaluru Data Set.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bengaluru_House_Data.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/External APPRAISAL _form.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Major Project report format.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text/ Project - 1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text/ Project - 2.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text/ Project - 3.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text/ Project - 4.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text/ Project - 5.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text/ Project - 6.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text/ Project - 7.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text/8 Deploy.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../oooooo/client/app.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../oooooo/client/app.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../oooooo/client/app.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../oooooo/client/img/bangaluru.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../oooooo/model/Bengaluru_House_Price_Pridicition.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../oooooo/model/Bengaluru_House_Price_Pridicition.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../oooooo/nginx_files/bhp.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/Bengaluru Data Set.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/model/Bengaluru Data Set.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,8 +26,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: -1
+  &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2TmTfAeZk2ruNkLnCmZj3ftxBbL" />
   <component name="ProjectLevelVcsManager">
@@ -73,5 +53,16 @@
       <updated>1691647361012</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
