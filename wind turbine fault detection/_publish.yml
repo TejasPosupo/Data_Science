@@ -1,0 +1,4 @@
+- source: Wind_Turbine_FaultDetection.ipynb
+  quarto-pub:
+    - id: 840185a4-5a50-4859-aba0-95ef3267e9ba
+      url: 'https://tejasposupo.quarto.pub/wind-turbine-fault-detection'

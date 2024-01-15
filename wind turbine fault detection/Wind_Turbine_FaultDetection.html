@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.542">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Wind Turbine Fault Detection</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="Wind_Turbine_FaultDetection_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Wind_Turbine_FaultDetection_files/libs/quarto-html/quarto.js"></script>
+<script src="Wind_Turbine_FaultDetection_files/libs/quarto-html/popper.min.js"></script>
+<script src="Wind_Turbine_FaultDetection_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Wind_Turbine_FaultDetection_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Wind_Turbine_FaultDetection_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Wind_Turbine_FaultDetection_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Wind_Turbine_FaultDetection_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Wind_Turbine_FaultDetection_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Wind_Turbine_FaultDetection_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Wind Turbine Fault Detection</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<h1 align="center" style="font-family: Times New Roman; font-size:20px; font-weight: bold">
+Tejas Posupo
+</h1>
+<h1 align="center" style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+MSc Data Analytics
+</h1>
+<h1 align="center" style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+Central University Of Rajasthan
+</h1>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+1.Introduction:
+</h1>
+<p>
+A wind turbine is a complex electromechanical system that consists of several components and sub-systems. The major components include rotor, bearings, mechanical shaft, gearbox, generator, power electronic interface and sensors as shown in Figure.
+</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="FaultDetection.jpg" class="img-fluid figure-img"></p>
+<figcaption>img.jpg</figcaption>
+</figure>
+</div>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+2 Faults of Wind Turbine System
+</h1>
+<p>
+Wind turbine system is subject to several types of faults within various components as shown in Figure..
+</p>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+2.1 Rotor
+</h1>
+<p>
+The rotor of the wind turbine consists of blades and hub. The wind turbine rotor is subject to various mechanical faults such as rotor asymmetry, fatigue, crack, increased surface roughness, reducedr
+</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="FaultDetection1.jpg" class="img-fluid figure-img"></p>
+<figcaption>img.jpg</figcaption>
+</figure>
+</div>
+<p>
+stiffness, and deformation of blades. Incorrect design of blades pitch angle and blades mass imbalance are the main causes of rotor asymmetry. Fatigue is caused by material aging and variable speed of wind on the blades. Long-term fatigue causes a reduction of the stiffness of the blades and leads to crack on the surface. Blade surface roughness is usually caused by icing, pollution, exfoliation and blowholes. As rotor faults are accompanied with a change in the blade material structure, these faults can be diagnosed using acoustic emission and vibration sensors. Acoustic emission is able to detect emerging structural changes by inserting sensors on the blades. If these faults develop to a certain level that contributes abnormal vibrations of the blades, then signals information acquired from vibration sensors can be utilized for fault diagnosis.
+</p>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+2.2 Gearbox
+</h1>
+<p>
+Failure in the gearbox and bearing depends on various factors such as material defects, design, man- ufacturing and installing errors, surface wear, torque overloads, misalignment and fatigue. The most common gear box failures include tooth abrasion, tooth crack, breakage, fracturing and surface fatigue initiated by the debris due to bearing failures. These faults may cause an abnormal temperature increase of the bearing and the lubrication oil which can be used as an indication for such types of faults.
+</p>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+2.3 Mainshaft
+</h1>
+<p>
+The failures of the mechanical shaft include corrosion, misalignment, crack and coupling failure. These faults affect the normal rotation of the shaft as well as other subsystems connected to the shaft. Hence the torque transmitted via the drivetrain will be affected and may lead to vibrations at certain characteristic frequencies in the gearbox, rotor, and generator. Shaft misalignment fault affects the amplitude of the fundamental frequency of the vibration of the gearbox, rotor, and generator. Hence, shaft faults can be detected and analyzed by capturing vibration, torque, and electrical signals. The analysis is done with the methods of frequency analysis such as fast Fourier transform (FFT).
+</p>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+2.4 Hydraulic System
+</h1>
+<p>
+A hydraulic system delivers hydraulic power to drive the motors that is used to adjust the blade pitch angle, maximizes wind power generation by adjusting yaw position and controls the mechanical brake to ensure the safety of wind turbine. This system is subject to oil leak and sliding valve blocking faults. Pressure and level sensors’ signals are used to diagnose these faults.
+</p>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+2.5 Mechanical Brake
+</h1>
+<p>
+A mechanical brake typically has three main components such as disk and calipers, hydraulic mech- anism and three-phase ac motor. Hydraulic mechanism is used to drive the calipers and motor is used to power the hydraulic mechanism. The brake is usually mounted on the main shaft. It is used to prevent the over speed of the rotor and even force the shaft to stop in case of failures of critical components. The brake is also applied for yaw subsystem to stabilize the bearing. The disk may be cracked due to overshoot of mechanical stress on the brake and overheating. Faults of the mechanical brake can be diagnosed through temperature and vibration monitoring.
+</p>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+2.6 Tower
+</h1>
+<p>
+The wind turbine tower faults are mainly occurred due to structure damages such as cracks and corrosions. These faults may be caused due to several factors including improper installation, loading, poor quality control during the manufacturing process, lightning, fire and earthquakes. Time and frequency domain analysis techniques can reveal the health condition of the tower.
+</p>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+2.7 Electric Machine
+</h1>
+<p>
+There are two types of faults that may take place in the electrical machine: mechanical and electrical faults. The electrical faults comprise open circuit, stator/rotor insulation damage and electrical im- balance. On the other side, broken rotor bar, air gap eccentricity, bent shaft, bearing failure and rotor mass imbalance are the main mechanical faults. The most common fault reported in the literature is the short circuit turns of coils in the wind turbine generator. These faults can be detected through shaft displacement detection, torque measurement, and vibration analysis. Temperature sensor can be used to detect winding faults. Stator open-circuit faults alter the spectra of the stator line currents and instantaneous power. Since rotor electrical imbalance causes shaft vibration, vibration signals can be used to monitor electrical imbalance. Stator electrical imbalance can be detected from the change in the harmonic content of electrical signals.
+</p>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+3 Methods for detecting failure in wind Turbine
+</h1>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+3.1 Vibration analysi
+</h1>
+<p>
+Vibration analysis is one of the powerful tools that is currently used to monitor the mechanical integrity of wind turbines. Vibration sensors installed on the casing of the wind turbine are used to detect faults within various wind turbine components such as gearbox, bearing, rotor and blade, tower, generator and main shaft. There are three main types of vibration sensors: displacement sensors, velocity sensors and accelerometers. The signals acquired from accelerometer carry out the accelerated fault information and the amplitude of the accelerated signal demonstrates the fault severity level. Installation of vibration sensors and required data acquisition devices increase the wiring complexity and capital cost of the technique. In addition, it is quite dicult to insert the sensors on the surface or into the body of the components. Moreover, if the sensors and data acquisition devices fail to provide signals, it may lead to the failure of wind turbine control, mechanical and electrical subsystems. Vibration signals are not capable of detecting incipient faults due to low signal to noise ratio (SNR).
+</p>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+3.2 Acoustic Emission
+</h1>
+<p>
+Acoustic emission sensors mounted on critical areas emit sound signals which are used to detect the structural defects of blades, gearbox, and bearings. The signal acquired from small structural changes indicates an incipient structure damage or defect such as fatigue, crack, reduced stiness and increased surface roughness. Unlike vibration analysis, this technique is able to detect incipient faults at early stages. However, it requires a large number of sensors which increases the cost and complexity of the technique.
+</p>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+3.3 Temperature Data Analysis
+</h1>
+<p>
+Temperature data are mainly used to detect faults within generators, bearings, gearbox and power converters. A cost eective wind turbine thermal model is developed to diagnose the faults through temperature analysis based on the Supervisory control and data acquisition (SCADA) signal. The SCADA signal provides reach information regarding faults of the wind turbine system with suitable signal processing methods. An electro-thermal model of DFIG is presented that reduce the cost of fault prevention and diagnosis for the wind turbine system. SCADA data control sets are used to prevent and diagnose wind turbine faults by analyzing of the machine’s temperature. A generalized model is presented based on SCADA data analysis of ambient temperature and wind speed to predict the faults for wind turbine. Although the technique is considered reliable and cost eective, its implementation is a bit complex. This technique cannot identify incipient faults and it is hard to identify the root cause and source of the temperature variation. Temperature detected by thermal sensors may rise due to nearby faulty components. Hence, the technique is unable to detect accurate fault locations. In addition, the thermal sensors are quite fragile in harsh environments.
+</p>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+3.4 Electrical Signal-Based Methods
+</h1>
+<p>
+Electrical signal-based methods are widely used to detect various faults due to their distinctive advan- tages. For example, the magnitudes of certain harmonic components in electrical current signal can be used to detect faults at early stages. Stator and rotor currents and stator voltages are measured to monitor the health condition of the generator. A stator and rotor current based data technique is proposed to identify faults within the doubly fed induction generator (DFIG). Power signals calculated from voltage and current signals is used to detect rotor electrical imbalance. Stator open circuit faults of DFIGs is detected using power and current spectra. A mechanical fault or structural defect usually induces vibration of the component that can modulate generator electrical signals. This modulated signal involves fault related information of the mechanical components. The P-amplitude of gener- ator electrical signal indicates the rotor imbalance due to the increased blade surface roughness or yaw misalignment. Electrical power spectral density indicates the reduction of blade stiness. The feature of bearing failure can be extracted by analyzing the phase and amplitude spectra of the gen- erator’s current signals which can be used to identify the development of bearing failures in an early stage. Electrical signals are also used to detect the fault of gearbox and power electronic converter. Compared to other signals, the electrical signal-based condition monitoring methods have signicant advantages in terms of ease of implementation, less hardware complexity, less cost, more reliability and potentiality.
+</p>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+3.5 Signal Processing Methods
+</h1>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+3.5.1 Hilbert Transform
+</h1>
+<p>
+Vibration of a faulty component modulates the electrical, vibration and torque signals and it is quite challenging to extract fault features from such signals to diagnose the faults. Hilbert transform is used to demodulate these signals and extract various faults features. The Hilbert transform comprises Fourier transform and empirical mode decomposition (EMD) to generate frequency or time frequency domain spectra.
+</p>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+3.5.2 Envelope Analysis
+</h1>
+<p>
+The envelope of the vibration signal is analyzed to detect bearing faults of the wind turbine system. This technique is able to detect both of the inner and outer bearing faults. In addition, it can detect and predict frets corrosion and assembly damage of bearings in early stages. The technique is based on time domain signal that needs other signal processing methods to be further processed.
+</p>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+3.5.3 Statistical Analysis
+</h1>
+<p>
+The statistical analysis methods are quite mature techniques that are widely used in the commercial wind turbine system. Appropriate statistical features such as mean value, variance, crest factor, root- mean-square value, skewness and kurtosis are calculated from the base values stored in the healthy condition of wind turbine. The deviations of these features from the reference values indicate faults within the wind turbine (WT). This method can only indicate the occurrence of a fault in spite of revealing the detailed information of the fault location or mode. Moreover, statistical analysis methods are almost inapplicable in high-noise environments and they require large data sets.
+</p>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+3.5.4 Fast Fourier Transform (FFT)
+</h1>
+<p>
+Fourier analysis is probably the most frequently applied frequency analysis technique in digital systems. The variations of certain harmonic components of the frequency spectrum indicates a specic fault. Though the classic FFT has the ability of frequency analysis for stationary signals, it cannot indicate the change in the frequency spectra for a nonstationary signal over time. Therefore, FFT cannot reveal the hidden fault information in a nonstationary signal.
+</p>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+3.5.5 Wavelet Transform
+</h1>
+<p>
+The wavelet transform divides a signal into dierent scale components with each assigned frequency. It is applied to monitor bearing failures in the generator and the gearbox. This technique can also be used to detect the rotor electrical unbalance in an induction generator and rotor mass unbalance in a synchronous generator. Wavelet transform is restricted to time and frequency resolutions.
+</p>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+3.5.6 Model Based Methods
+</h1>
+<p>
+Accurate mathematical models are constructed to simulate the dynamic behaviors of a wind turbine. The methods do not need high resolution signals which removes the need for data acquisition hardware and installing additional sensors. However, it is quite challenging to design an eective model to mimic real-world applications.
+</p>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+3.5.7 Bayesian Method
+</h1>
+<p>
+The Bayesian method is used to predict the remaining useful life as well as faults of wind turbine blade, bearing, lubrication oil. The accuracy of the methods mainly depends on the size of data samples and the availability of history of previous tests. This highlights the shortcoming of the real world application of this method due to the lack of prior data samples.
+</p>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+3.5.8 Articial Intelligence
+</h1>
+<p>
+Articial intelligence (AI) is widely used to analyze condition monitoring data of a wind turbine. This includes articial neural networks (ANNs), expert systems, space vector modulations (SVMs), and fuzzy logic systems. ANNs are used to diagnose the fault of dierent wind turbine components such as generators, gearbox, bearings, and power electronics. The ANN based methods are time consuming and require a large amount of data to cover all possible conditions, which makes them impracticable in some cases.
+</p>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+4 Methodology
+</h1>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+4.1 Data Acquisition
+</h1>
+<p>
+In order to build representative models for the system, it is necessary to have the historical monitoring data of an adequate timeframe for the customization of the models. In this project we used a open source data found on kaggle (url: https://www.kaggle.com/wallacefqq/wind-turbines-scada-datasets).
+</p>
+<p>
+The data has following columns:
+</p>
+<ul>
+<li><p>unitlocation: In total, two locations(WTG40 and WTF43) of data is present. In our case we will only consider WTG40.</p>
+<p></p></li>
+<li><p>ttimestamplocal: The data is recorded in between 2020-03-01 00:00 and 2020-12-31 23:50:00.</p>
+<p></p></li>
+<li><p>windspeed : average windspeed in m per second.</p>
+<p></p></li>
+<li><p>power: power produce in Kwh</p>
+<p></p></li>
+<li><p>wind direction Angle: in degree</p>
+<p></p></li>
+<li><p>rtr rpm: rotor speed in rotation per minute</p>
+<p></p></li>
+<li><p>pitch Angle</p>
+<p></p></li>
+<li><p>generation’</p>
+<p></p></li>
+<li><p>wheel hub temperature</p>
+<p></p></li>
+<li><p>ambient Temperature’,</p>
+<p></p></li>
+<li><p>Tower bottom ambient temperature’,</p>
+<p></p></li>
+<li><p>failure time: In this dataset the failure time is unclear. It does not tell clearly about after running the wind turbine for the given time the failure is occurred or the total runtime. period. If it is the rst case we can make two classes with fault status; 1 for fault occurrence and another for normal operation.</p>
+<p></p>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+<p>5 Python code</p>
+</h1>
+<p>
+</p><p>Code is provided with attachments.</p>
+<p></p>
+<h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
+<p>6 Results</p>
+</h1></li>
+<li><p>Accuracy on training set: 99.98%</p></li>
+<li><p>Accuracy on testing set: 100.00%</p></li>
+<li><p>Number of errors on training set: 0</p></li>
+<li><p>Number of errors on testing set: 0</p></li>
+<li><p>Overfitting test result: -0.02%</p></li>
+</ul>
+<div id="9ebc031f" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> OneClassSVM</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">"figure.figsize"</span>] <span class="op">=</span> (<span class="dv">20</span>,<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="1d3372f7" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'wt.csv'</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">unitlocation</th>
+<th data-quarto-table-cell-role="th">ttimestamplocal</th>
+<th data-quarto-table-cell-role="th">windspeed</th>
+<th data-quarto-table-cell-role="th">power</th>
+<th data-quarto-table-cell-role="th">wind direction Angle</th>
+<th data-quarto-table-cell-role="th">rtr_rpm</th>
+<th data-quarto-table-cell-role="th">pitch Angle</th>
+<th data-quarto-table-cell-role="th">generation</th>
+<th data-quarto-table-cell-role="th">wheel hub temperature</th>
+<th data-quarto-table-cell-role="th">ambient Temperature</th>
+<th data-quarto-table-cell-role="th">Tower bottom ambient temperature</th>
+<th data-quarto-table-cell-role="th">failure time</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>WTG40</td>
+<td>\t2020-03-01 00:00:00\t</td>
+<td>0.93</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.38</td>
+<td>49.99</td>
+<td>2872434</td>
+<td>10.54</td>
+<td>2.78</td>
+<td>19.40</td>
+<td>11.12</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>WTG40</td>
+<td>\t2020-03-01 00:10:00\t</td>
+<td>0.81</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.37</td>
+<td>49.99</td>
+<td>2872434</td>
+<td>10.60</td>
+<td>2.80</td>
+<td>19.08</td>
+<td>11.12</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>WTG40</td>
+<td>\t2020-03-01 00:20:00\t</td>
+<td>0.56</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.36</td>
+<td>49.99</td>
+<td>2872434</td>
+<td>10.92</td>
+<td>2.76</td>
+<td>19.34</td>
+<td>11.12</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>WTG40</td>
+<td>\t2020-03-01 00:30:00\t</td>
+<td>0.46</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.36</td>
+<td>49.99</td>
+<td>2872434</td>
+<td>10.65</td>
+<td>2.72</td>
+<td>19.32</td>
+<td>11.12</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>WTG40</td>
+<td>\t2020-03-01 00:40:00\t</td>
+<td>0.45</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.33</td>
+<td>49.99</td>
+<td>2872434</td>
+<td>10.62</td>
+<td>2.82</td>
+<td>19.19</td>
+<td>11.12</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">85061</td>
+<td>WTG34</td>
+<td>\t2020-12-31 23:10:00\t</td>
+<td>11.72</td>
+<td>2210.05</td>
+<td>179.27</td>
+<td>12.38</td>
+<td>9.60</td>
+<td>7607053</td>
+<td>2.71</td>
+<td>-2.67</td>
+<td>15.19</td>
+<td>115.18</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">85062</td>
+<td>WTG34</td>
+<td>\t2020-12-31 23:20:00\t</td>
+<td>11.27</td>
+<td>2212.24</td>
+<td>176.09</td>
+<td>12.39</td>
+<td>8.83</td>
+<td>7607420</td>
+<td>2.61</td>
+<td>-2.32</td>
+<td>15.23</td>
+<td>115.18</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">85063</td>
+<td>WTG34</td>
+<td>\t2020-12-31 23:30:00\t</td>
+<td>11.30</td>
+<td>2211.59</td>
+<td>179.41</td>
+<td>12.40</td>
+<td>8.84</td>
+<td>7607791</td>
+<td>2.60</td>
+<td>-3.80</td>
+<td>14.98</td>
+<td>115.18</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">85064</td>
+<td>WTG34</td>
+<td>\t2020-12-31 23:40:00\t</td>
+<td>10.83</td>
+<td>2212.02</td>
+<td>177.51</td>
+<td>12.40</td>
+<td>8.12</td>
+<td>7608159</td>
+<td>2.55</td>
+<td>-3.92</td>
+<td>15.09</td>
+<td>115.18</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">85065</td>
+<td>WTG34</td>
+<td>\t2020-12-31 23:50:00\t</td>
+<td>10.63</td>
+<td>2213.59</td>
+<td>179.65</td>
+<td>12.39</td>
+<td>7.62</td>
+<td>7608512</td>
+<td>2.53</td>
+<td>-3.91</td>
+<td>15.17</td>
+<td>115.18</td>
+</tr>
+</tbody>
+</table>
+
+<p>85066 rows × 12 columns</p>
+</div>
+</div>
+</div>
+<div id="9e7645ec" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove spaces in columns name</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df.columns <span class="op">=</span> df.columns.<span class="bu">str</span>.replace(<span class="st">' '</span>,<span class="st">'_'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="95d6401f" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">unitlocation</th>
+<th data-quarto-table-cell-role="th">ttimestamplocal</th>
+<th data-quarto-table-cell-role="th">windspeed</th>
+<th data-quarto-table-cell-role="th">power</th>
+<th data-quarto-table-cell-role="th">wind_direction_Angle</th>
+<th data-quarto-table-cell-role="th">rtr_rpm</th>
+<th data-quarto-table-cell-role="th">pitch_Angle</th>
+<th data-quarto-table-cell-role="th">generation</th>
+<th data-quarto-table-cell-role="th">wheel_hub_temperature</th>
+<th data-quarto-table-cell-role="th">ambient_Temperature</th>
+<th data-quarto-table-cell-role="th">Tower_bottom_ambient_temperature</th>
+<th data-quarto-table-cell-role="th">failure_time</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>WTG40</td>
+<td>\t2020-03-01 00:00:00\t</td>
+<td>0.93</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.38</td>
+<td>49.99</td>
+<td>2872434</td>
+<td>10.54</td>
+<td>2.78</td>
+<td>19.40</td>
+<td>11.12</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>WTG40</td>
+<td>\t2020-03-01 00:10:00\t</td>
+<td>0.81</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.37</td>
+<td>49.99</td>
+<td>2872434</td>
+<td>10.60</td>
+<td>2.80</td>
+<td>19.08</td>
+<td>11.12</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>WTG40</td>
+<td>\t2020-03-01 00:20:00\t</td>
+<td>0.56</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.36</td>
+<td>49.99</td>
+<td>2872434</td>
+<td>10.92</td>
+<td>2.76</td>
+<td>19.34</td>
+<td>11.12</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>WTG40</td>
+<td>\t2020-03-01 00:30:00\t</td>
+<td>0.46</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.36</td>
+<td>49.99</td>
+<td>2872434</td>
+<td>10.65</td>
+<td>2.72</td>
+<td>19.32</td>
+<td>11.12</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>WTG40</td>
+<td>\t2020-03-01 00:40:00\t</td>
+<td>0.45</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.33</td>
+<td>49.99</td>
+<td>2872434</td>
+<td>10.62</td>
+<td>2.82</td>
+<td>19.19</td>
+<td>11.12</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="85987b6e" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"unitlocation"</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>unitlocation
+WTG40    42592
+WTG34    42474
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<div id="39a32e06" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming your DataFrame is named df</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df.drop(df[df[<span class="st">'unitlocation'</span>] <span class="op">==</span> <span class="st">'WTG34'</span>].index, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"unitlocation"</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>unitlocation
+WTG40    42592
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<div id="b6adeff2" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get failure times</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>fault_time_wtg40 <span class="op">=</span> df.failure_time.unique()</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>fault_time_wtg40</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>array([11.12, 11.19, 11.36, 11.53, 11.7 , 11.84, 12.01, 12.18, 12.34,
+       12.51, 12.68, 12.84, 13.01, 13.17, 13.34, 13.51, 13.67, 13.84,
+       14.01, 14.18, 14.34, 14.5 , 14.67, 14.84, 15.01, 15.16, 15.34,
+       15.5 , 15.68, 15.84, 16.01, 16.17, 16.34, 16.51, 16.67, 16.84,
+       16.99, 17.17, 17.34, 17.51, 17.67, 17.84, 18.  , 18.17, 18.34,
+       18.52, 18.66, 18.84, 19.01, 19.17, 19.33, 19.51, 20.46, 20.59,
+       20.76, 20.93, 21.09, 21.26, 21.4 , 21.59, 21.76, 21.92, 22.09,
+       22.26, 22.43, 22.58, 22.76, 22.93, 23.1 , 23.26, 23.42, 23.6 ,
+       23.76, 23.93, 24.09, 24.26, 24.43, 24.59, 24.76, 24.92, 25.09,
+       25.26, 25.42, 25.57, 25.75, 25.93, 26.09, 26.26, 26.43, 26.59,
+       26.76, 26.92, 27.09, 27.26, 27.43, 27.58, 27.76, 27.92, 28.09,
+       28.25, 28.42, 28.59, 28.76, 28.77, 28.89, 29.05, 29.58, 30.36,
+       30.53, 30.7 , 30.87, 31.03, 31.2 , 31.37, 31.53, 31.69, 31.88,
+       32.03, 32.2 , 32.37, 32.53, 32.69, 32.86, 33.04, 33.19, 33.37,
+       33.54, 33.7 , 33.86, 34.02, 34.2 , 34.36, 34.53, 34.7 , 34.87,
+       35.03, 35.19, 35.36, 35.53, 35.7 , 35.88, 36.03, 36.2 , 36.35,
+       36.53, 36.7 , 36.86, 37.03, 37.2 , 37.35, 37.53, 37.7 , 37.86,
+       38.03, 38.2 , 38.34, 38.54, 38.69, 38.86, 39.03, 39.19, 39.34,
+       39.52, 39.7 , 39.86, 40.03, 40.2 , 40.36, 40.53, 40.68, 40.86,
+       41.03, 41.19, 41.36, 41.53, 41.7 , 41.86, 42.03, 42.19, 42.34,
+       42.54, 42.69, 42.85, 43.03, 43.19, 43.35, 43.51, 43.69, 43.86,
+       44.03, 44.19, 44.36, 44.53, 44.68, 44.86, 45.02, 45.18, 45.2 ,
+       45.36, 45.53, 45.69, 45.86, 46.03, 46.2 , 46.37, 46.53, 46.69,
+       46.86, 47.03, 47.2 , 47.36, 47.53, 47.7 , 47.86, 48.03, 48.2 ,
+       48.36, 48.52, 48.7 , 48.86, 49.03, 49.2 , 49.36, 49.53, 49.63,
+       49.7 , 51.91, 51.94, 52.08, 52.24, 52.41, 52.58, 52.74, 52.9 ,
+       53.08, 53.24, 53.41, 53.57, 53.74, 53.89, 54.07, 54.23, 54.41,
+       54.57, 54.74, 54.91, 55.06, 55.23, 55.4 , 55.57, 55.72, 55.91,
+       56.07, 56.24, 56.4 , 56.56, 56.74, 56.9 , 57.06, 57.24, 57.41,
+       57.57, 57.73, 57.9 , 58.07, 58.24, 58.4 , 58.57, 58.73, 58.9 ,
+       59.07, 59.24, 59.4 , 59.56, 59.74, 59.9 , 60.08, 60.23, 60.4 ,
+       60.57, 60.73, 60.9 , 61.07, 61.24, 61.4 , 61.57, 61.74, 61.9 ,
+       62.07, 62.25, 62.4 , 62.57, 62.72, 62.9 , 63.07, 63.23, 63.4 ,
+       63.56, 63.72, 63.89, 64.07, 64.23, 64.4 , 64.57, 64.71, 64.9 ,
+       65.07, 65.23, 65.4 , 65.57, 65.73, 65.89, 66.07, 66.23, 66.4 ,
+       66.57, 66.73, 66.9 , 67.06, 67.23, 67.4 , 67.56, 67.73, 67.88,
+       68.06, 68.23, 68.4 , 68.56, 68.73, 68.77])</code></pre>
+</div>
+</div>
+<div id="50e9ec22" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the failure status in dataset</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'total_runtime'</span>] <span class="op">=</span> [i<span class="op">*</span><span class="dv">10</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="bu">len</span>(df)<span class="op">+</span><span class="dv">1</span>)]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'is_fault'</span>] <span class="op">=</span> df[<span class="st">'total_runtime'</span>]<span class="op">&lt;</span> fault_time_wtg40.<span class="bu">max</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cb360620" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove some columns that are unnecessary</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop([<span class="st">'unitlocation'</span>, <span class="st">'ttimestamplocal'</span>,<span class="st">'total_runtime'</span>, <span class="st">'failure_time'</span>], axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="f2718386" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'is_fault'</span>] <span class="op">=</span> df[<span class="st">'is_fault'</span>].astype(<span class="st">'category'</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'is_fault'</span>] <span class="op">=</span> df[<span class="st">'is_fault'</span>].cat.codes</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># final datasets for training</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">'is_fault'</span>]</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span> df.drop([<span class="st">'is_fault'</span>],  axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>x.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">windspeed</th>
+<th data-quarto-table-cell-role="th">power</th>
+<th data-quarto-table-cell-role="th">wind_direction_Angle</th>
+<th data-quarto-table-cell-role="th">rtr_rpm</th>
+<th data-quarto-table-cell-role="th">pitch_Angle</th>
+<th data-quarto-table-cell-role="th">generation</th>
+<th data-quarto-table-cell-role="th">wheel_hub_temperature</th>
+<th data-quarto-table-cell-role="th">ambient_Temperature</th>
+<th data-quarto-table-cell-role="th">Tower_bottom_ambient_temperature</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">count</td>
+<td>42592.000000</td>
+<td>42592.000000</td>
+<td>42592.000000</td>
+<td>42592.000000</td>
+<td>42592.000000</td>
+<td>4.259200e+04</td>
+<td>42592.000000</td>
+<td>42592.000000</td>
+<td>42592.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>4.693273</td>
+<td>653.797555</td>
+<td>171.081463</td>
+<td>7.227109</td>
+<td>8.868844</td>
+<td>5.665854e+06</td>
+<td>22.785580</td>
+<td>15.840264</td>
+<td>29.088985</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>2.770764</td>
+<td>739.499557</td>
+<td>48.802821</td>
+<td>3.840320</td>
+<td>21.170777</td>
+<td>1.233734e+06</td>
+<td>8.086884</td>
+<td>9.347388</td>
+<td>6.523025</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>0.020000</td>
+<td>-29.840000</td>
+<td>0.000000</td>
+<td>0.210000</td>
+<td>-0.580000</td>
+<td>2.872434e+06</td>
+<td>-4.830000</td>
+<td>-13.060000</td>
+<td>2.960000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>2.680000</td>
+<td>60.047500</td>
+<td>175.170000</td>
+<td>5.000000</td>
+<td>-0.520000</td>
+<td>4.843144e+06</td>
+<td>17.590000</td>
+<td>9.950000</td>
+<td>25.087500</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>4.300000</td>
+<td>323.215000</td>
+<td>180.520000</td>
+<td>7.120000</td>
+<td>-0.500000</td>
+<td>5.916913e+06</td>
+<td>23.820000</td>
+<td>17.280000</td>
+<td>30.310000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>6.372500</td>
+<td>1056.462500</td>
+<td>185.160000</td>
+<td>10.540000</td>
+<td>1.950000</td>
+<td>6.577421e+06</td>
+<td>29.562500</td>
+<td>23.180000</td>
+<td>33.890000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>19.210000</td>
+<td>2224.870000</td>
+<td>355.970000</td>
+<td>12.480000</td>
+<td>90.470000</td>
+<td>7.529655e+06</td>
+<td>37.210000</td>
+<td>36.210000</td>
+<td>44.830000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="39f8fe7e" class="cell" data-execution_count="11">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check there is any null value present in dataset or not</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x.isnull().values.<span class="bu">any</span>())</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 -&gt; outlier  and 0-&gt; normal</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>False</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>0        1
+1        1
+2        1
+3        1
+4        1
+        ..
+42587    0
+42588    0
+42589    0
+42590    0
+42591    0
+Name: is_fault, Length: 42592, dtype: int8</code></pre>
+</div>
+</div>
+<div id="5ca8c7bb" class="cell" data-execution_count="12">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply PCA to reduce dimensionality reduction</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>fatures_name <span class="op">=</span> x.columns.tolist()</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>x_std <span class="op">=</span> StandardScaler().fit_transform(x)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>x_std <span class="op">=</span> pd.DataFrame(x_std,columns<span class="op">=</span> fatures_name)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>x_std.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">windspeed</th>
+<th data-quarto-table-cell-role="th">power</th>
+<th data-quarto-table-cell-role="th">wind_direction_Angle</th>
+<th data-quarto-table-cell-role="th">rtr_rpm</th>
+<th data-quarto-table-cell-role="th">pitch_Angle</th>
+<th data-quarto-table-cell-role="th">generation</th>
+<th data-quarto-table-cell-role="th">wheel_hub_temperature</th>
+<th data-quarto-table-cell-role="th">ambient_Temperature</th>
+<th data-quarto-table-cell-role="th">Tower_bottom_ambient_temperature</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>-1.358224</td>
+<td>-0.884118</td>
+<td>-3.505606</td>
+<td>-1.782974</td>
+<td>1.942377</td>
+<td>-2.264226</td>
+<td>-1.514270</td>
+<td>-1.397226</td>
+<td>-1.485369</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>-1.401533</td>
+<td>-0.884118</td>
+<td>-3.505606</td>
+<td>-1.785578</td>
+<td>1.942377</td>
+<td>-2.264226</td>
+<td>-1.506850</td>
+<td>-1.395087</td>
+<td>-1.534427</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>-1.491762</td>
+<td>-0.884118</td>
+<td>-3.505606</td>
+<td>-1.788182</td>
+<td>1.942377</td>
+<td>-2.264226</td>
+<td>-1.467279</td>
+<td>-1.399366</td>
+<td>-1.494567</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>-1.527854</td>
+<td>-0.884118</td>
+<td>-3.505606</td>
+<td>-1.788182</td>
+<td>1.942377</td>
+<td>-2.264226</td>
+<td>-1.500667</td>
+<td>-1.403645</td>
+<td>-1.497633</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>-1.531463</td>
+<td>-0.884118</td>
+<td>-3.505606</td>
+<td>-1.795994</td>
+<td>1.942377</td>
+<td>-2.264226</td>
+<td>-1.504377</td>
+<td>-1.392947</td>
+<td>-1.517563</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<section id="how-to-select-the-number-of-components" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-select-the-number-of-components">How to select the number of components?</h3>
+<div id="acbb6b4b" class="cell" data-execution_count="13">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.discriminant_analysis <span class="im">import</span> LinearDiscriminantAnalysis <span class="im">as</span> LDA</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>lda_ <span class="op">=</span> LDA().fit(x_std, y)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>desired_variance <span class="op">=</span> <span class="fl">0.90</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>yi <span class="op">=</span> np.cumsum(lda_.explained_variance_ratio_)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>xi <span class="op">=</span> np.arange(<span class="dv">1</span>, yi.shape[<span class="dv">0</span>]<span class="op">+</span><span class="dv">1</span>, step<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="fl">0.0</span>,<span class="fl">1.1</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>plt.plot(xi, yi, marker<span class="op">=</span><span class="st">'o'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, color<span class="op">=</span><span class="st">'b'</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Number of Components'</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>plt.xticks(np.arange(<span class="dv">1</span>, yi.shape[<span class="dv">0</span>]<span class="op">+</span><span class="dv">2</span>, step<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Cumulative variance (%)'</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'The number of components needed to explain variance'</span>)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span>desired_variance, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'-'</span>)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>plt.text(<span class="dv">1</span>, desired_variance<span class="op">+</span> <span class="fl">0.05</span>, <span class="bu">str</span>(desired_variance<span class="op">*</span><span class="dv">100</span>) <span class="op">+</span><span class="st">'</span><span class="sc">% c</span><span class="st">ut-off threshold'</span>, color<span class="op">=</span><span class="st">'b'</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>ax.grid(axis<span class="op">=</span><span class="st">'x'</span>)</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Wind_Turbine_FaultDetection_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="b44c57a6" class="cell" data-execution_count="14">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># from above figure to acheive 0.95 explained varience we need 5 components</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>lda <span class="op">=</span> LDA(n_components<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> lda.fit_transform(x_std, y)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>X</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>array([[4.90729526],
+       [4.93406475],
+       [4.85308476],
+       ...,
+       [0.20430609],
+       [0.16800172],
+       [0.19590956]])</code></pre>
+</div>
+</div>
+<div id="775b1f9c" class="cell" data-execution_count="15">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># variance ratio of each components</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>lda.explained_variance_ratio_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>array([1.])</code></pre>
+</div>
+</div>
+<div id="90bc8f2b" class="cell" data-execution_count="16">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(X[:, <span class="dv">0</span>], X[:, <span class="dv">0</span>], color<span class="op">=</span><span class="st">'blue'</span>)  </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"LD1"</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"LD2"</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Wind_Turbine_FaultDetection_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="d2e8a5df" class="cell" data-execution_count="17">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> myplot(score, coeff, labels<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> score[:, <span class="dv">0</span>]</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    ys <span class="op">=</span> np.zeros_like(xs)  <span class="co"># Create a dummy array for the y-coordinate</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> coeff.shape[<span class="dv">0</span>]</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    scalex <span class="op">=</span> <span class="fl">1.0</span> <span class="op">/</span> (xs.<span class="bu">max</span>() <span class="op">-</span> xs.<span class="bu">min</span>())</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    scaley <span class="op">=</span> <span class="fl">1.0</span> <span class="op">/</span> (ys.<span class="bu">max</span>() <span class="op">-</span> ys.<span class="bu">min</span>())</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    plt.scatter(xs <span class="op">*</span> scalex, ys <span class="op">*</span> scaley)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>        plt.arrow(<span class="dv">0</span>, <span class="dv">0</span>, coeff[i, <span class="dv">0</span>], coeff[i, <span class="dv">0</span>], color<span class="op">=</span><span class="st">'r'</span>)  <span class="co"># Use coeff[i, 0] for both x and y</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> labels <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>            plt.text(coeff[i, <span class="dv">0</span>] <span class="op">*</span> <span class="fl">1.15</span>, coeff[i, <span class="dv">0</span>] <span class="op">*</span> <span class="fl">1.15</span>, <span class="st">"Var"</span> <span class="op">+</span> <span class="bu">str</span>(i <span class="op">+</span> <span class="dv">1</span>), color<span class="op">=</span><span class="st">'r'</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'center'</span>)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>            plt.text(coeff[i, <span class="dv">0</span>] <span class="op">*</span> <span class="fl">1.5</span>, coeff[i, <span class="dv">0</span>], labels[i], color<span class="op">=</span><span class="st">'g'</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'center'</span>)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    plt.xlim(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    plt.ylim(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"LD</span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(<span class="dv">1</span>))</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"LD</span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(<span class="dv">2</span>))</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    plt.grid()</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming x_std is a DataFrame or Series with column names as labels</span></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>myplot(X[:, <span class="dv">0</span>:<span class="dv">2</span>], np.transpose(lda.coef_[<span class="dv">0</span>:<span class="dv">2</span>, :]), x_std.columns)</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Wind_Turbine_FaultDetection_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="6fa4835a" class="cell" data-execution_count="18">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># number of components</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>n_lds<span class="op">=</span> lda.coef_.shape[<span class="dv">0</span>]</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>most_important <span class="op">=</span> [np.<span class="bu">abs</span>(lda.coef_[i]).argmax() <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_lds)]</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># get the names</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>most_important_names <span class="op">=</span> [fatures_name[most_important[i]] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_lds)]</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>most_important_names</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>['rtr_rpm']</code></pre>
+</div>
+</div>
+<div id="2ebbdc32" class="cell" data-execution_count="19">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now using scikit-learn model_selection module, split the data into train/test sets</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> svm</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># keeping 40% reserved for testing purpose and 60% data will be used to train and form model.</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>X_train, X_test, Y_train, Y_test <span class="op">=</span> train_test_split(x_std, y, test_size<span class="op">=</span><span class="fl">0.1</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Build an SVC (Support Vector Classification) model using linear regression</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>clf_ob <span class="op">=</span> svm.SVC(kernel<span class="op">=</span><span class="st">'linear'</span>, C<span class="op">=</span><span class="dv">1</span>).fit(X_train, Y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="d20f1aff" class="cell" data-execution_count="20">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># showing the important features</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>f_names <span class="op">=</span> X_train.columns.tolist()</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>imp_score <span class="op">=</span> clf_ob.coef_.tolist()[<span class="dv">0</span>]</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>imp_score,f_names <span class="op">=</span> <span class="bu">zip</span>(<span class="op">*</span><span class="bu">sorted</span>(<span class="bu">zip</span>(imp_score,f_names)))</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>plt.barh(<span class="bu">range</span>(<span class="bu">len</span>(f_names)), imp_score, align<span class="op">=</span><span class="st">'center'</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>plt.yticks(<span class="bu">range</span>(<span class="bu">len</span>(f_names)), X_train)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Wind_Turbine_FaultDetection_files/figure-html/cell-21-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="b5b3985e" class="cell" data-execution_count="21">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming you trained your OneClassSVM model as clf_ob</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>X_outliers <span class="op">=</span> np.random.uniform(low<span class="op">=-</span><span class="dv">3</span>, high<span class="op">=</span><span class="dv">3</span>, size<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">2</span>))</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>y_pred_train <span class="op">=</span> clf_ob.predict(X_train)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>y_pred_test <span class="op">=</span> clf_ob.predict(X_test)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate accuracy scores</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>accuracy_train <span class="op">=</span> accuracy_score(Y_train, y_pred_train)</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>accuracy_test <span class="op">=</span> accuracy_score(Y_test, y_pred_test)</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate number of errors</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>n_error_train <span class="op">=</span> y_pred_train[y_pred_train <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>].size</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>n_error_test <span class="op">=</span> y_pred_test[y_pred_test <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>].size</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Print results</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Accuracy on training set: </span><span class="sc">{</span>accuracy_train<span class="sc">:.2%}</span><span class="ss">"</span>)</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Accuracy on testing set: </span><span class="sc">{</span>accuracy_test<span class="sc">:.2%}</span><span class="ss">"</span>)</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number of errors on training set: </span><span class="sc">{</span>n_error_train<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Number of errors on testing set: </span><span class="sc">{</span>n_error_test<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for overfitting</span></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>overfitting_test <span class="op">=</span> accuracy_train <span class="op">-</span> accuracy_test</span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Overfitting test result: </span><span class="sc">{</span>overfitting_test<span class="sc">:.2%}</span><span class="ss">"</span>)</span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting</span></span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>plt.bar([<span class="st">'Training'</span>, <span class="st">'Testing'</span>], [accuracy_train, accuracy_test], color<span class="op">=</span>[<span class="st">'blue'</span>, <span class="st">'green'</span>])</span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Accuracy'</span>)</span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Model Accuracy on Training and Testing Sets'</span>)</span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if overfitting is present</span></span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> overfitting_test <span class="op">&gt;</span> <span class="fl">0.05</span>:</span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The model may be overfitting."</span>)</span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The model is not overfitting."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy on training set: 99.98%
+Accuracy on testing set: 100.00%
+Number of errors on training set: 0
+Number of errors on testing set: 0
+Overfitting test result: -0.02%
+The model is not overfitting.</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Wind_Turbine_FaultDetection_files/figure-html/cell-22-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
