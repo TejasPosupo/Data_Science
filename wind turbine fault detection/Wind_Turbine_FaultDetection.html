@@ -268,30 +268,18 @@ In order to build representative models for the system, it is necessary to have 
 The data has following columns:
 </p>
 <ul>
-<li><p>unitlocation: In total, two locations(WTG40 and WTF43) of data is present. In our case we will only consider WTG40.</p>
-<p></p></li>
-<li><p>ttimestamplocal: The data is recorded in between 2020-03-01 00:00 and 2020-12-31 23:50:00.</p>
-<p></p></li>
-<li><p>windspeed : average windspeed in m per second.</p>
-<p></p></li>
-<li><p>power: power produce in Kwh</p>
-<p></p></li>
-<li><p>wind direction Angle: in degree</p>
-<p></p></li>
-<li><p>rtr rpm: rotor speed in rotation per minute</p>
-<p></p></li>
-<li><p>pitch Angle</p>
-<p></p></li>
-<li><p>generation’</p>
-<p></p></li>
-<li><p>wheel hub temperature</p>
-<p></p></li>
-<li><p>ambient Temperature’,</p>
-<p></p></li>
-<li><p>Tower bottom ambient temperature’,</p>
-<p></p></li>
+<li><p>unitlocation: In total, two locations(WTG40 and WTF43) of data is present. In our case we will only consider WTG40.</p></li>
+<li><p>ttimestamplocal: The data is recorded in between 2020-03-01 00:00 and 2020-12-31 23:50:00.</p></li>
+<li><p>windspeed : average windspeed in m per second.</p></li>
+<li><p>power: power produce in Kwh</p></li>
+<li><p>wind direction Angle: in degree</p></li>
+<li><p>rtr rpm: rotor speed in rotation per minute</p></li>
+<li><p>pitch Angle</p></li>
+<li><p>generation’</p></li>
+<li><p>wheel hub temperature</p></li>
+<li><p>ambient Temperature’,</p></li>
+<li><p>Tower bottom ambient temperature’,</p></li>
 <li><p>failure time: In this dataset the failure time is unclear. It does not tell clearly about after running the wind turbine for the given time the failure is occurred or the total runtime. period. If it is the rst case we can make two classes with fault status; 1 for fault occurrence and another for normal operation.</p>
-<p></p>
 <h1 style="font-family: Times New Roman; font-size:20px; font-weight: bold;">
 <p>5 Python code</p>
 </h1>
@@ -306,6 +294,7 @@ The data has following columns:
 <li><p>Number of errors on training set: 0</p></li>
 <li><p>Number of errors on testing set: 0</p></li>
 <li><p>Overfitting test result: -0.02%</p></li>
+<li><p>The model is not overfitting.</p></li>
 </ul>
 <div id="9ebc031f" class="cell" data-execution_count="1">
 <details class="code-fold">
@@ -1110,13 +1099,13 @@ Name: is_fault, Length: 42592, dtype: int8</code></pre>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now using scikit-learn model_selection module, split the data into train/test sets</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> svm</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># keeping 40% reserved for testing purpose and 60% data will be used to train and form model.</span></span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>X_train, X_test, Y_train, Y_test <span class="op">=</span> train_test_split(x_std, y, test_size<span class="op">=</span><span class="fl">0.1</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Build an SVC (Support Vector Classification) model using linear regression</span></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>clf_ob <span class="op">=</span> svm.SVC(kernel<span class="op">=</span><span class="st">'linear'</span>, C<span class="op">=</span><span class="dv">1</span>).fit(X_train, Y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a Logistic Regression model</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>clf_ob <span class="op">=</span> LogisticRegression(C<span class="op">=</span><span class="dv">1</span>).fit(X_train, Y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div id="d20f1aff" class="cell" data-execution_count="20">
